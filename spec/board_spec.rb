@@ -16,5 +16,11 @@ RSpec.describe Board do
     expect(board.grid).to eq([nil, :X, nil, nil, nil, nil, nil, nil, nil])
   end
 
-  # board is immutable so test object is not the same
+  it "returns a new copy of the board when an update is made" do
+    original_board = board.grid 
+    board.update(1, :X)
+    updated_board = board.grid
+
+    expect(updated_board.object_id).not_to eq(original_board.object_id)
+  end
 end
