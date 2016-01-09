@@ -7,6 +7,11 @@ RSpec.describe Board do
     expect(board.is_empty).to be true
   end
 
+  it "has all slots occupied so is not empty" do
+    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
+    expect(full_board.is_empty).to be false
+  end
+
   it "has a board of nine cells" do
     expect(board.grid.size).to eq(9)
   end
@@ -23,4 +28,5 @@ RSpec.describe Board do
 
     expect(updated_board.object_id).not_to eq(original_board.object_id)
   end
+
 end
