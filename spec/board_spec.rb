@@ -7,4 +7,8 @@ RSpec.describe Board do
     expect(board.is_empty).to be true
   end
 
+  it "a new board has nine cells" do
+    expect(board.grid.size).to eq(9)
+  end
+
 end
