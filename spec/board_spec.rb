@@ -29,4 +29,12 @@ RSpec.describe Board do
     expect(updated_board.object_id).not_to eq(original_board.object_id)
   end
 
+  it "has free spaces" do
+    expect(board.has_free_spaces).to be true
+  end
+
+  it "with all slots occupied means there are no free spaces" do
+    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
+    expect(full_board.has_free_spaces).to be false
+  end
 end
