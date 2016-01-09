@@ -8,4 +8,8 @@ class Board
   def is_empty
     !(grid.include?(:X) or grid.include?(:O))
   end
+
+  def update(index, symbol)
+    grid[index] = symbol
+  end
 end
