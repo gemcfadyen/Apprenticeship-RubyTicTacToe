@@ -21,11 +21,13 @@ class Board
   end
 
   def has_winning_combination
-    indices_of_every_x = grid.each_index.select { |v| grid[v] == :X} 
     all_winning_combinations = all_winning_combinations_for_3x3_grid
 
+    indices_of_every_x = grid.each_index.select { |v| grid[v] == :X} 
+    indices_of_every_o = grid.each_index.select { |v| grid[v] == :O} 
+    
     all_winning_combinations.each do |r|
-      has_winning_combo =  r.all? { |element| indices_of_every_x.include?(element)}
+      has_winning_combo =  r.all? { |element| indices_of_every_x.include?(element) or indices_of_every_o.include?(element)}
 
       if has_winning_combo
         return true

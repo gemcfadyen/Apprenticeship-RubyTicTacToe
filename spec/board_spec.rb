@@ -38,18 +38,17 @@ RSpec.describe Board do
     expect(full_board.has_free_spaces).to be false
   end
 
-
   it "has no winning combination" do
     winning_board = Board.new([:O, :X, :X, nil, nil, nil, nil, nil, nil])
     expect(winning_board.has_winning_combination).to be false
   end
 
-  it "has winning combination in top row" do
+  it "has winning combination of X in top row" do
     winning_board = Board.new([:X, :X, :X, nil, nil, nil, nil, nil, nil])
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination in middle row" do
+  it "has winning combination of X in middle row" do
     winning_board = Board.new([nil, nil, nil, :X, :X, :X, nil, nil, nil])
     expect(winning_board.has_winning_combination).to be true
   end
@@ -81,6 +80,16 @@ RSpec.describe Board do
   
   it "has winning combination in second diagonal" do
     winning_board = Board.new([nil, nil, :X, nil, :X, nil, :X, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination of O in top row" do
+    winning_board = Board.new([:O, :O, :O, nil, nil, nil, nil, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination of O in middle row" do
+    winning_board = Board.new([nil, nil, nil, :O, :O, :O, nil, nil, nil])
     expect(winning_board.has_winning_combination).to be true
   end
 end
