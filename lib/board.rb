@@ -30,7 +30,6 @@ class Board
     has_win_for_o = check_for_winning_combination_in(indices_of_every_o, all_winning_combinations)
 
     return (has_win_for_x or has_win_for_o)
-    #   return false
   end
 
   def grid
@@ -53,30 +52,31 @@ class Board
 
   def all_winning_combinations_for_3x3_grid
     all_winning_combinations = []
-
-    top_row_combination = [0, 1, 2]
-    middle_row_combination = [3, 4, 5]
-    bottom_row_combination = [6, 7, 8]
-
-    left_column_combination = [0, 3, 6]
-    middle_column_combination = [1, 4, 7]
-    right_column_combination = [2, 5, 8]
-
-    first_diagonal_combination = [0, 4, 8]
-    second_diagonal_combination = [2, 4, 6]
-
-    all_winning_combinations << top_row_combination
-    all_winning_combinations << middle_row_combination
-    all_winning_combinations << bottom_row_combination
-    all_winning_combinations << left_column_combination
-    all_winning_combinations << middle_column_combination 
-    all_winning_combinations << right_column_combination
-    all_winning_combinations << first_diagonal_combination
-    all_winning_combinations << second_diagonal_combination
-
-    all_winning_combinations
+    all_winning_combinations += indices_for_winning_rows 
+    all_winning_combinations += indices_for_winning_columns 
+    all_winning_combinations += indices_for_winning_diagonals
   end
 
+  def indices_for_winning_rows
+    rows = [] 
+    rows << [0, 1, 2] 
+    rows << [3, 4, 5] 
+    rows << [6, 7, 8]
+  end
+
+  def indices_for_winning_columns
+    columns = []
+    columns << [0, 3, 6]
+    columns << [1, 4, 7]
+    columns << [2, 5, 8]
+  end
+
+  def indices_for_winning_diagonals
+    diagonals = []
+    diagonals << [0, 4, 8]
+    diagonals << [2, 4, 6]
+  end
+  
   def check_for_winning_combination_in(positions, all_winning_combinations)
     all_winning_combinations.each do |r|
       has_winning_combo =  r.all? { |element| positions.include?(element) }
