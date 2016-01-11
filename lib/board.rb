@@ -30,6 +30,7 @@ class Board
     has_win_for_o = check_for_winning_combination_in(indices_of_every_o, all_winning_combinations)
 
     return (has_win_for_x or has_win_for_o)
+    #   return false
   end
 
   def grid
