@@ -21,18 +21,18 @@ class Board
   end
 
   def has_winning_combination
-    indices_of_every_x = grid.each_index.select { |v|grid[v] == :X} 
+    indices_of_every_x = grid.each_index.select { |v| grid[v] == :X} 
+    all_winning_combinations = all_winning_combinations_for_3x3_grid
 
-    if indices_of_every_x.include?(0) and indices_of_every_x.include?(1) and indices_of_every_x.include?(2)
-      true 
-    elsif indices_of_every_x.include?(3) and indices_of_every_x.include?(4) and indices_of_every_x.include?(5)
-      true 
-    elsif indices_of_every_x.include?(6) and indices_of_every_x.include?(7) and indices_of_every_x.include?(8) 
-      true 
-    else
-      false
+    all_winning_combinations.each do |r|
+      has_winning_combo =  r.all? { |element| indices_of_every_x.include?(element)}
+
+      if has_winning_combo
+        return true
+      end
     end
-
+    
+    return false
   end
 
   def grid
@@ -51,5 +51,18 @@ class Board
       temp_array[i] = grid[i] 
     end
     temp_array
+  end
+
+  def all_winning_combinations_for_3x3_grid
+    all_winning_combinations = []
+
+    top_row_combination = [0, 1, 2]
+    middle_row_combination = [3, 4, 5]
+    bottom_row_combination = [6, 7, 8]
+
+    all_winning_combinations << top_row_combination
+    all_winning_combinations << middle_row_combination
+    all_winning_combinations << bottom_row_combination
+    all_winning_combinations
   end
 end

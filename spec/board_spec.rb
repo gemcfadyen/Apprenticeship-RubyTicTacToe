@@ -58,4 +58,10 @@ RSpec.describe Board do
     winning_board = Board.new([nil, nil, nil, nil, nil, nil, :X, :X, :X])
     expect(winning_board.has_winning_combination).to be true
   end
+
+#  it "has winning combination in left column" do
+#    winning_board = Board.new([:X, nil, nil, :X, nil, nil, :X, nil, nil])
+#    expect(winning_board.has_winning_combination).to be true
+#  end
+
 end
