@@ -1,5 +1,5 @@
 class PromptWriter
-  attr_accessor :std_out 
+  attr_reader :std_out 
 
   def initialize(std_out)
     @std_out = std_out
@@ -22,12 +22,7 @@ class PromptWriter
     cells = board.grid
 
     cells.each_index do |index|
-      board_to_display = board_to_display + display_cell(cells[index], index) 
-
-      #  if !cells[index].nil?
-      #    board_to_display = board_to_display + divider + cells[index].to_s   
-      #  else 
-      #    board_to_display = board_to_display + divider + one_based(index).to_s
+      board_to_display = board_to_display + divider + display_cell(cells, index)
       board_to_display += add_new_line_if_end_of_row(index)
     end
     std_out.puts board_to_display
@@ -39,10 +34,6 @@ class PromptWriter
     index + 1
   end
 
-  def divider
-    " | " 
-  end
-
   def add_new_line_if_end_of_row(index)
     if (index + 1) % 3 == 0
       return " |\n"
@@ -50,11 +41,11 @@ class PromptWriter
     return ""
   end
 
-  def display_cell(content, index)
-    if !content.nil?
-      return divider + content.to_s   
-    else 
-      return divider + one_based(index).to_s
-    end
+  def display_cell(cells, index)
+   cells[index].nil? ? one_based(index).to_s : cells[index].to_s
+  end
+
+  def divider
+    " | " 
   end
 end
