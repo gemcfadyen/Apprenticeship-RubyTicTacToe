@@ -60,9 +60,13 @@ class Board
     middle_row_combination = [3, 4, 5]
     bottom_row_combination = [6, 7, 8]
 
+    left_column_combination = [0, 3, 6]
+
     all_winning_combinations << top_row_combination
     all_winning_combinations << middle_row_combination
     all_winning_combinations << bottom_row_combination
+    all_winning_combinations << left_column_combination
+    
     all_winning_combinations
   end
 end
