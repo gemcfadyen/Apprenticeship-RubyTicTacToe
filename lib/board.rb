@@ -32,10 +32,6 @@ class Board
     return (has_win_for_x or has_win_for_o)
   end
 
-  def grid
-    @grid
-  end
-
   private
 
   def set_grid(grid) #using grid=(grid) causes the tests to fail as the attribute grid is not updated
