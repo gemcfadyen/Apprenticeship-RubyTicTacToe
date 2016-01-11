@@ -64,4 +64,18 @@ RSpec.describe Board do
     expect(winning_board.has_winning_combination).to be true
   end
 
+  it "has winning combination in middle column" do
+    winning_board = Board.new([nil, :X, nil, nil, :X, nil, nil, :X, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination in right column" do
+    winning_board = Board.new([nil, nil, :X, nil, nil, :X, nil, nil, :X])
+    expect(winning_board.has_winning_combination).to be true
+  end
+  
+  it "has winning combination in diagonal column" do
+    winning_board = Board.new([:X, nil, nil, nil, :X, nil, nil, nil, :X])
+    expect(winning_board.has_winning_combination).to be true
+  end
 end

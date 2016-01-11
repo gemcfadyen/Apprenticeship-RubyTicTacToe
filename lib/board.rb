@@ -31,7 +31,7 @@ class Board
         return true
       end
     end
-    
+
     return false
   end
 
@@ -61,12 +61,19 @@ class Board
     bottom_row_combination = [6, 7, 8]
 
     left_column_combination = [0, 3, 6]
+    middle_column_combination = [1, 4, 7]
+    right_column_combination = [2, 5, 8]
+
+    diagonal_combination = [0, 4, 8]
 
     all_winning_combinations << top_row_combination
     all_winning_combinations << middle_row_combination
     all_winning_combinations << bottom_row_combination
     all_winning_combinations << left_column_combination
-    
+    all_winning_combinations << middle_column_combination 
+    all_winning_combinations << right_column_combination
+    all_winning_combinations << diagonal_combination
+
     all_winning_combinations
   end
 end
