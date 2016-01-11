@@ -37,4 +37,20 @@ RSpec.describe Board do
     full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
     expect(full_board.has_free_spaces).to be false
   end
+
+
+   it "has no winning combination" do
+    winning_board = Board.new([:O, :X, :X, nil, nil, nil, nil, nil, nil])
+    expect(winning_board.has_winning_combination).to be false
+  end
+
+  it "has winning combination in top row" do
+    winning_board = Board.new([:X, :X, :X, nil, nil, nil, nil, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination in middle row" do
+    winning_board = Board.new([:nil, :nil, :nil, :X, :X, :X, nil, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
 end
