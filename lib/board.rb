@@ -25,16 +25,11 @@ class Board
 
     indices_of_every_x = grid.each_index.select { |v| grid[v] == :X} 
     indices_of_every_o = grid.each_index.select { |v| grid[v] == :O} 
-    
-    all_winning_combinations.each do |r|
-      has_winning_combo =  r.all? { |element| indices_of_every_x.include?(element) or indices_of_every_o.include?(element)}
 
-      if has_winning_combo
-        return true
-      end
-    end
+    has_win_for_x = check_for_winning_combination_in(indices_of_every_x, all_winning_combinations)
+    has_win_for_o = check_for_winning_combination_in(indices_of_every_o, all_winning_combinations)
 
-    return false
+    return (has_win_for_x or has_win_for_o)
   end
 
   def grid
@@ -77,7 +72,18 @@ class Board
     all_winning_combinations << right_column_combination
     all_winning_combinations << first_diagonal_combination
     all_winning_combinations << second_diagonal_combination
-   
+
     all_winning_combinations
+  end
+
+  def check_for_winning_combination_in(positions, all_winning_combinations)
+    all_winning_combinations.each do |r|
+      has_winning_combo =  r.all? { |element| positions.include?(element) }
+
+      if has_winning_combo
+        return true
+      end
+    end
+    return false
   end
 end
