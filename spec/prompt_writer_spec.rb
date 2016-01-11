@@ -1,4 +1,5 @@
 require 'prompt_writer'
+require 'board'
 
 RSpec.describe PromptWriter do
   before (:each) do
@@ -20,5 +21,12 @@ RSpec.describe PromptWriter do
   it "displays draw message" do
     @prompt.show_draw_message
     expect(@std_out.string).to eq "The game is a draw!\n"
+  end
+
+  it "displays empty board" do
+    board = Board.new
+    @prompt.show_board(board)
+    expect(@std_out.string).to eq(" | 1 | 2 | 3 |\n | 4 | 5 | 6 |\n | 7 | 8 | 9 |\n")
+
   end
 end
