@@ -39,7 +39,7 @@ RSpec.describe Board do
   end
 
 
-   it "has no winning combination" do
+  it "has no winning combination" do
     winning_board = Board.new([:O, :X, :X, nil, nil, nil, nil, nil, nil])
     expect(winning_board.has_winning_combination).to be false
   end
@@ -50,7 +50,12 @@ RSpec.describe Board do
   end
 
   it "has winning combination in middle row" do
-    winning_board = Board.new([:nil, :nil, :nil, :X, :X, :X, nil, nil, nil])
+    winning_board = Board.new([nil, nil, nil, :X, :X, :X, nil, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination in bottom row" do
+    winning_board = Board.new([nil, nil, nil, nil, nil, nil, :X, :X, :X])
     expect(winning_board.has_winning_combination).to be true
   end
 end

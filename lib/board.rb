@@ -22,15 +22,17 @@ class Board
 
   def has_winning_combination
     indices_of_every_x = grid.each_index.select { |v|grid[v] == :X} 
-    
+
     if indices_of_every_x.include?(0) and indices_of_every_x.include?(1) and indices_of_every_x.include?(2)
       true 
     elsif indices_of_every_x.include?(3) and indices_of_every_x.include?(4) and indices_of_every_x.include?(5)
       true 
+    elsif indices_of_every_x.include?(6) and indices_of_every_x.include?(7) and indices_of_every_x.include?(8) 
+      true 
     else
       false
     end
- 
+
   end
 
   def grid
