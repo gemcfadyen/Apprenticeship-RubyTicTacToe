@@ -53,32 +53,32 @@ RSpec.describe Board do
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination in bottom row" do
+  it "has winning combination of X in bottom row" do
     winning_board = Board.new([nil, nil, nil, nil, nil, nil, :X, :X, :X])
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination in left column" do
+  it "has winning combination of X in left column" do
     winning_board = Board.new([:X, nil, nil, :X, nil, nil, :X, nil, nil])
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination in middle column" do
+  it "has winning combination of X in middle column" do
     winning_board = Board.new([nil, :X, nil, nil, :X, nil, nil, :X, nil])
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination in right column" do
+  it "has winning combination of X in right column" do
     winning_board = Board.new([nil, nil, :X, nil, nil, :X, nil, nil, :X])
     expect(winning_board.has_winning_combination).to be true
   end
   
-  it "has winning combination in first diagonal" do
+  it "has winning combination of X in first diagonal" do
     winning_board = Board.new([:X, nil, nil, nil, :X, nil, nil, nil, :X])
     expect(winning_board.has_winning_combination).to be true
   end
   
-  it "has winning combination in second diagonal" do
+  it "has winning combination of X in second diagonal" do
     winning_board = Board.new([nil, nil, :X, nil, :X, nil, :X, nil, nil])
     expect(winning_board.has_winning_combination).to be true
   end
@@ -88,8 +88,13 @@ RSpec.describe Board do
     expect(winning_board.has_winning_combination).to be true
   end
 
-  it "has winning combination of O in middle row" do
-    winning_board = Board.new([nil, nil, nil, :O, :O, :O, nil, nil, nil])
+  it "has winning combination of O in left column" do
+    winning_board = Board.new([:O, nil, nil, :O, nil, nil, :O, nil, nil])
+    expect(winning_board.has_winning_combination).to be true
+  end
+
+  it "has winning combination of O in first diagonal" do
+    winning_board = Board.new([:O, nil, nil, nil, :O, nil, nil, nil, :O])
     expect(winning_board.has_winning_combination).to be true
   end
 end
