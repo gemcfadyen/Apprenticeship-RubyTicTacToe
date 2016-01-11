@@ -34,4 +34,9 @@ RSpec.describe PromptWriter do
     @prompt.show_board(board)
     expect(@std_out.string).to eq(" | X | 2 | 3 |\n | O | X | 6 |\n | 7 | 8 | 9 |\n")
   end
+
+  it "displays replay option" do
+    @prompt.replay
+    expect(@std_out.string).to eq "Play again?\n"
+  end
 end

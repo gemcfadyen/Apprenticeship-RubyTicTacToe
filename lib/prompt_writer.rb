@@ -28,6 +28,10 @@ class PromptWriter
     std_out.puts board_to_display
   end
 
+  def replay
+    std_out.puts "Play again?"
+  end
+
   private
 
   def one_based(index)
@@ -42,7 +46,7 @@ class PromptWriter
   end
 
   def display_cell(cells, index)
-   cells[index].nil? ? one_based(index).to_s : cells[index].to_s
+    cells[index].nil? ? one_based(index).to_s : cells[index].to_s
   end
 
   def divider
