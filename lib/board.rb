@@ -64,7 +64,8 @@ class Board
     middle_column_combination = [1, 4, 7]
     right_column_combination = [2, 5, 8]
 
-    diagonal_combination = [0, 4, 8]
+    first_diagonal_combination = [0, 4, 8]
+    second_diagonal_combination = [2, 4, 6]
 
     all_winning_combinations << top_row_combination
     all_winning_combinations << middle_row_combination
@@ -72,8 +73,9 @@ class Board
     all_winning_combinations << left_column_combination
     all_winning_combinations << middle_column_combination 
     all_winning_combinations << right_column_combination
-    all_winning_combinations << diagonal_combination
-
+    all_winning_combinations << first_diagonal_combination
+    all_winning_combinations << second_diagonal_combination
+   
     all_winning_combinations
   end
 end
