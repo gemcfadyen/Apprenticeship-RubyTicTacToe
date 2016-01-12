@@ -16,6 +16,11 @@ RSpec.describe Board do
     expect(board.grid.size).to eq(9)
   end
 
+  it "has grid formation" do
+    board = Board.new([nil, nil, nil, nil, :X, :O, nil, nil, nil])
+    expect(board.grid_for_display).to eq("empty$empty$empty$empty$X$O$empty$empty$empty$")
+  end
+
   it "updates board with a symbol at a given position" do
     board.update(1, :X)
     expect(board.grid).to eq([nil, :X, nil, nil, nil, nil, nil, nil, nil])

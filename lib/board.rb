@@ -39,12 +39,24 @@ class Board
     if check_for_winning_row_of(:X, all_winning_combinations) 
       return :X 
     end
-  
+
     if check_for_winning_row_of(:O, all_winning_combinations) 
       return :O
     end
-   
+
     :unset
+  end
+
+  def grid_for_display
+    grid_formation = ""
+    (0...grid.size).each do |i|
+      if grid[i].nil?
+        grid_formation+="empty$"
+      else 
+        grid_formation+= grid[i].to_s + "$"
+      end 
+    end
+    grid_formation 
   end
 
   private
