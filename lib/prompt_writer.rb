@@ -9,8 +9,8 @@ class PromptWriter
     std_out.puts "Please enter your next move"
   end
 
-  def show_winning_message
-    std_out.puts "The game has been won!"
+  def show_winning_message(symbol)
+    std_out.puts "The game has been won by #{symbol}!"
   end
 
   def show_draw_message 
