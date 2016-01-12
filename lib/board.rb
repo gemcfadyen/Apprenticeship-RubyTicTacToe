@@ -47,10 +47,6 @@ class Board
     :unset
   end
 
-  def grid
-    @grid
-  end
-
   private
 
   def set_grid(grid)
