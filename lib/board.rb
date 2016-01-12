@@ -23,18 +23,37 @@ class Board
   def has_winning_combination
     all_winning_combinations = all_winning_combinations_for_3x3_grid
 
-    indices_of_every_x = grid.each_index.select { |v| grid[v] == :X} 
-    indices_of_every_o = grid.each_index.select { |v| grid[v] == :O} 
+    has_win_for_x = check_for_winning_row_of(:X, all_winning_combinations) 
+    has_win_for_o = check_for_winning_row_of(:O, all_winning_combinations)
 
-    has_win_for_x = check_for_winning_combination_in(indices_of_every_x, all_winning_combinations)
-    has_win_for_o = check_for_winning_combination_in(indices_of_every_o, all_winning_combinations)
+    has_win_for_x or has_win_for_o
+  end
 
-    return (has_win_for_x or has_win_for_o)
+  def check_for_winning_row_of(symbol, all_winning_combinations) 
+    all_indices_of_symbol = grid.each_index.select { |v| grid[v] == symbol} 
+    check_for_winning_combination_in(all_indices_of_symbol, all_winning_combinations)
+  end
+
+  def winning_symbol
+    all_winning_combinations = all_winning_combinations_for_3x3_grid
+    if check_for_winning_row_of(:X, all_winning_combinations) 
+      return :X 
+    end
+  
+    if check_for_winning_row_of(:O, all_winning_combinations) 
+      return :O
+    end
+   
+    :unset
+  end
+
+  def grid
+    @grid
   end
 
   private
 
-  def set_grid(grid) #using grid=(grid) causes the tests to fail as the attribute grid is not updated
+  def set_grid(grid)
     @grid = grid
   end
 
@@ -72,7 +91,7 @@ class Board
     diagonals << [0, 4, 8]
     diagonals << [2, 4, 6]
   end
-  
+
   def check_for_winning_combination_in(positions, all_winning_combinations)
     all_winning_combinations.each do |r|
       has_winning_combo =  r.all? { |element| positions.include?(element) }

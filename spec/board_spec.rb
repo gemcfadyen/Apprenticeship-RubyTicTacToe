@@ -97,4 +97,18 @@ RSpec.describe Board do
     winning_board = Board.new([:O, nil, nil, nil, :O, nil, nil, nil, :O])
     expect(winning_board.has_winning_combination).to be true
   end
+
+  it "has winning symbol X" do
+    winning_board = Board.new([:X, :X, :X, nil, nil, nil, nil, nil, nil])
+    expect(winning_board.winning_symbol).to be :X
+  end
+
+  it "has winning symbol O" do
+    winning_board = Board.new([:O, :O, :O, nil, nil, nil, nil, nil, nil])
+    expect(winning_board.winning_symbol).to be :O
+  end
+
+  it "has no winning symbol" do
+    expect(board.winning_symbol).to be :unset
+  end
 end
