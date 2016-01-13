@@ -3,25 +3,25 @@ require 'board'
 RSpec.describe Board do
   let (:board) {Board.new}
 
-  it "has an empty board on initialisation" do
+  it "is empty on initialisation" do
     expect(board.is_empty).to be true
   end
 
-  it "has all slots occupied so is not empty" do
+  it "is not empty when all slots are occupied" do
     full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
     expect(full_board.is_empty).to be false
   end
 
-  it "has a board of nine cells" do
+  it "has nine cells" do
     expect(board.grid.size).to eq(9)
   end
 
-  it "has grid formation" do
+  it "displays the current grid formation" do
     board = Board.new([nil, nil, nil, nil, :X, :O, nil, nil, nil])
     expect(board.grid_for_display).to eq("empty$empty$empty$empty$X$O$empty$empty$empty$")
   end
 
-  it "updates board with a symbol at a given position" do
+  it "can be upadated updated at a given position" do
     board.update(1, :X)
     expect(board.grid).to eq([nil, :X, nil, nil, nil, nil, nil, nil, nil])
   end
@@ -38,7 +38,7 @@ RSpec.describe Board do
     expect(board.has_free_spaces).to be true
   end
 
-  it "with all slots occupied means there are no free spaces" do
+  it "has no free spaces when all slots are occupied" do
     full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
     expect(full_board.has_free_spaces).to be false
   end
