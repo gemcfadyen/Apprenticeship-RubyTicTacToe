@@ -12,9 +12,9 @@ RSpec.describe Board do
     expect(full_board.is_empty).to be false
   end
 
-  it "displays the current grid formation" do
+  it "returns the current grid formation" do
     board = Board.new([nil, nil, nil, nil, :X, :O, nil, nil, nil])
-    expect(board.grid_for_display).to eq("empty$empty$empty$empty$X$O$empty$empty$empty$")
+    expect(board.grid_for_display).to eq([[nil, nil, nil], [nil, :X, :O], [nil, nil, nil]])
   end
 
   it "can get symbol at given position" do

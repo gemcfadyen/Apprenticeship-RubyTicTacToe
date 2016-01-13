@@ -18,11 +18,6 @@ RSpec.describe PromptWriter do
     expect(@std_out.string).to eq "The game has been won by X!\n"
   end
 
-  it "displays winning message for O" do
-    @prompt.show_winning_message(:O) 
-    expect(@std_out.string).to eq "The game has been won by O!\n"
-  end
-
   it "displays draw message" do
     @prompt.show_draw_message
     expect(@std_out.string).to eq "The game is a draw!\n"
