@@ -5,7 +5,7 @@ class PromptReader
     @std_in = std_in
   end
 
-  def getInput()
+  def get_input()
     std_in.gets.chomp
   end
 end
