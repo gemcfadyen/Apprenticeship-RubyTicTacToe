@@ -11,5 +11,4 @@ RSpec.describe PromptReader do
     
     expect(value).to eq "1"
   end
-
 end

@@ -20,6 +20,7 @@ class PromptWriter
   def show_board(board)
     board_to_display = ""
     cells = board.grid_for_display.split("$")
+
     cells.each_index do |index|
       board_to_display = board_to_display + divider + display_cell(cells, index)
       board_to_display += add_new_line_if_end_of_row(index)
@@ -33,22 +34,23 @@ class PromptWriter
 
   private
 
-  def one_based(index)
-    index + 1
-  end
-
-  def add_new_line_if_end_of_row(index)
-    if (index + 1) % 3 == 0
-      return " |\n"
-    end
-    return ""
+  def divider
+    " | " 
   end
 
   def display_cell(cells, index)
     cells[index] == "empty" ? one_based(index).to_s : cells[index].to_s
   end
 
-  def divider
-    " | " 
+  def one_based(index)
+    index + 1
   end
+
+  def add_new_line_if_end_of_row(index)
+    if one_based(index) % 3 == 0
+      return " |\n"
+    end
+    return ""
+  end
+
 end
