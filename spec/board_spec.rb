@@ -12,26 +12,19 @@ RSpec.describe Board do
     expect(full_board.is_empty).to be false
   end
 
-  it "has nine cells" do
-    expect(board.grid.size).to eq(9)
-  end
-
   it "displays the current grid formation" do
     board = Board.new([nil, nil, nil, nil, :X, :O, nil, nil, nil])
     expect(board.grid_for_display).to eq("empty$empty$empty$empty$X$O$empty$empty$empty$")
   end
 
-  it "can be upadated updated at a given position" do
-    board.update(1, :X)
-    expect(board.grid).to eq([nil, :X, nil, nil, nil, nil, nil, nil, nil])
+  it "can get symbol at given position" do
+    board = Board.new([nil, nil, nil, nil, :X, :O, nil, nil, nil])
+    expect(board.get_symbol_at(4)).to be :X
   end
 
-  it "returns a new copy of the board when an update is made" do
-    original_board = board.grid 
-    board.update(1, :X)
-    updated_board = board.grid
-
-    expect(updated_board.object_id).not_to eq(original_board.object_id)
+  it "can be updated at a given position" do
+    updated_board = board.make_move(1, :X)
+    expect(updated_board.get_symbol_at(1)).to eq(:X)
   end
 
   it "has free spaces" do
@@ -77,12 +70,12 @@ RSpec.describe Board do
     winning_board = Board.new([nil, nil, :X, nil, nil, :X, nil, nil, :X])
     expect(winning_board.has_winning_combination).to be true
   end
-  
+
   it "has winning combination of X in first diagonal" do
     winning_board = Board.new([:X, nil, nil, nil, :X, nil, nil, nil, :X])
     expect(winning_board.has_winning_combination).to be true
   end
-  
+
   it "has winning combination of X in second diagonal" do
     winning_board = Board.new([nil, nil, :X, nil, :X, nil, :X, nil, nil])
     expect(winning_board.has_winning_combination).to be true

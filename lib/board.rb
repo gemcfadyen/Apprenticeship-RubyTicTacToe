@@ -1,5 +1,4 @@
 class Board
-  attr_accessor :grid 
 
   def initialize(symbols = Array.new(9))
     @grid = symbols
@@ -9,15 +8,19 @@ class Board
     !(grid.include?(:X) or grid.include?(:O))
   end
 
-  def update(index, symbol)
+  def make_move(index, symbol)
     grid_before_index = copy_portion_of_grid(index)
     grid_after_index = copy_portion_of_grid(grid.size - (index + 1))  
 
-    set_grid Array.new(grid_before_index + [symbol] + grid_after_index)
+    Board.new(Array.new(grid_before_index + [symbol] + grid_after_index))
   end
 
   def has_free_spaces 
     grid.include?(nil)
+  end
+
+  def get_symbol_at(position)
+    grid.at(position)
   end
 
   def has_winning_combination
@@ -61,9 +64,7 @@ class Board
 
   private
 
-  def set_grid(grid)
-    @grid = grid
-  end
+  attr_reader :grid
 
   def copy_portion_of_grid(size_of_portion_to_copy)
     temp_array = Array.new(size_of_portion_to_copy)
