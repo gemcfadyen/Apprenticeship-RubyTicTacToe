@@ -1,6 +1,4 @@
 class PromptWriter
-  attr_reader :std_out 
-
   def initialize(std_out)
     @std_out = std_out
   end
@@ -28,6 +26,8 @@ class PromptWriter
 
   private
 
+  attr_reader :std_out 
+  
   def divider
     " | " 
   end
