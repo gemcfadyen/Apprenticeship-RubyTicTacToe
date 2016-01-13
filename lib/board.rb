@@ -24,94 +24,90 @@ class Board
   end
 
   def has_winning_combination
-    all_row_indices = row_indices_for_3x3_grid
+    all_rows = rows_for_3x3_grid
 
-    has_win_for_x = check_for_winning_row_of(:X, all_row_indices) 
-    has_win_for_o = check_for_winning_row_of(:O, all_row_indices)
+    has_win_for_x = check_for_winning_row_of(:X, all_rows) 
+    has_win_for_o = check_for_winning_row_of(:O, all_rows)
 
     has_win_for_x or has_win_for_o
   end
 
-  def check_for_winning_row_of(symbol, all_winning_combinations) 
-    all_indices_of_symbol = grid.each_index.select { |v| grid[v] == symbol} 
-    check_for_winning_combination_in(all_indices_of_symbol, all_winning_combinations)
+  def check_for_winning_row_of(symbol, all_rows) 
+    has_row_of_matching_symbols_within(all_rows) 
+  end
+
+  def has_row_of_matching_symbols_within(all_rows)
+    all_rows.each do |row| 
+      puts 'row is: ' + row.to_s
+      all_cells_match = row.all? {|cell| cell == row[0]}
+      if all_cells_match and not_nil_symbol(row[0])
+        return true
+      end
+    end 
+    return false
+  end
+
+  def not_nil_symbol(cell)
+    !cell.nil?
   end
 
   def winning_symbol
-    all_winning_combinations = row_indices_for_3x3_grid
-    if check_for_winning_row_of(:X, all_winning_combinations) 
-      return :X 
-    end
-
-    if check_for_winning_row_of(:O, all_winning_combinations) 
-      return :O
-    end
-    :unset
+    rows_for_3x3_grid.each do |row| 
+      all_cells_match = row.all? {|cell| cell == row[0]}
+      if all_cells_match and not_nil_symbol(row[0])
+        return row[0]
+      end
+    end 
+    return nil
   end
 
   def grid_for_display
-    all_rows = Array.new(3) 
-    offset = 0
-    indices_for_rows.each do |row_indices|
-      all_rows[offset] = create_row_for(row_indices)
-      offset += 1
-    end
-    all_rows
+    indices_for_rows
   end
 
   private
 
   attr_reader :grid
 
-  def create_row_for(row_indices) 
-    single_row = Array.new(3)
-    (0...3).each do |index| 
-      row_indices.each do |row_index|
-        single_row[index] = grid[row_indices[index]]
-      end
-    end
-    single_row 
-  end
-
   def copy_portion_of_grid(start_index, end_index)
     grid[start_index...end_index] 
   end
 
-  def row_indices_for_3x3_grid
-    all_winning_combinations = []
-    all_winning_combinations += indices_for_rows 
-    all_winning_combinations += indices_for_columns 
-    all_winning_combinations += indices_for_diagonals
+  def rows_for_3x3_grid
+    all_rows = []
+    all_rows += indices_for_rows 
+    all_rows += indices_for_columns 
+    all_rows += indices_for_diagonals
+  end
+
+  def does_row_match_condition
+    rows_for_3x3_grid.each do |row| 
+      all_cells_match = row.all? {|cell| cell == row[0]}
+      if all_cells_match and not_nil_symbol(row[0])
+        return row[0]
+      end
+    end 
+    return nil
   end
 
   def indices_for_rows
     rows = [] 
-    rows << [0, 1, 2] 
-    rows << [3, 4, 5] 
-    rows << [6, 7, 8]
+    rows << [grid.at(0), grid.at(1), grid.at(2)] 
+    rows << [grid.at(3), grid.at(4), grid.at(5)] 
+    rows << [grid.at(6), grid.at(7), grid.at(8)]
   end
 
   def indices_for_columns
     columns = []
-    columns << [0, 3, 6]
-    columns << [1, 4, 7]
-    columns << [2, 5, 8]
+    columns << [grid.at(0), grid.at(3), grid.at(6)]
+    columns << [grid.at(1), grid.at(4), grid.at(7)]
+    columns << [grid.at(2), grid.at(5), grid.at(8)]
   end
 
   def indices_for_diagonals
     diagonals = []
-    diagonals << [0, 4, 8]
-    diagonals << [2, 4, 6]
+    diagonals << [grid.at(0),grid.at(4), grid.at(8)]
+    diagonals << [grid.at(2), grid.at(4), grid.at(6)]
   end
 
-  def check_for_winning_combination_in(positions, all_winning_combinations)
-    all_winning_combinations.each do |r|
-      has_winning_combo =  r.all? { |element| positions.include?(element) }
-
-      if has_winning_combo
-        return true
-      end
-    end
-    return false
-  end
 end

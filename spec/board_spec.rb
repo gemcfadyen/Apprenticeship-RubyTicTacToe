@@ -8,7 +8,7 @@ RSpec.describe Board do
   end
 
   it "is not empty when all slots are occupied" do
-    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
+    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O])
     expect(full_board.is_empty).to be false
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Board do
   end
 
   it "has no free spaces when all slots are occupied" do
-    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O]) 
+    full_board = Board.new([:X, :O, :X, :O, :X, :O, :X, :X, :O])
     expect(full_board.has_free_spaces).to be false
   end
 
@@ -107,6 +107,6 @@ RSpec.describe Board do
   end
 
   it "has no winning symbol" do
-    expect(board.winning_symbol).to be :unset
+    expect(board.winning_symbol).to be nil 
   end
 end
