@@ -24,45 +24,16 @@ class Board
   end
 
   def has_winning_combination
-    all_rows = rows_for_3x3_grid
-
-    has_win_for_x = check_for_winning_row_of(:X, all_rows) 
-    has_win_for_o = check_for_winning_row_of(:O, all_rows)
-
-    has_win_for_x or has_win_for_o
-  end
-
-  def check_for_winning_row_of(symbol, all_rows) 
-    has_row_of_matching_symbols_within(all_rows) 
-  end
-
-  def has_row_of_matching_symbols_within(all_rows)
-    all_rows.each do |row| 
-      puts 'row is: ' + row.to_s
-      all_cells_match = row.all? {|cell| cell == row[0]}
-      if all_cells_match and not_nil_symbol(row[0])
-        return true
-      end
-    end 
-    return false
-  end
-
-  def not_nil_symbol(cell)
-    !cell.nil?
+    has_winning_combination_within(all_rows)
   end
 
   def winning_symbol
-    rows_for_3x3_grid.each do |row| 
-      all_cells_match = row.all? {|cell| cell == row[0]}
-      if all_cells_match and not_nil_symbol(row[0])
-        return row[0]
-      end
-    end 
-    return nil
+    winning_row = find_winning_row_from(all_rows)
+    winning_row.nil? ? nil : winning_row[0] 
   end
 
   def grid_for_display
-    indices_for_rows
+    rows
   end
 
   private
@@ -73,38 +44,57 @@ class Board
     grid[start_index...end_index] 
   end
 
-  def rows_for_3x3_grid
-    all_rows = []
-    all_rows += indices_for_rows 
-    all_rows += indices_for_columns 
-    all_rows += indices_for_diagonals
+  def has_winning_combination_within(all_rows) 
+    has_row_of_matching_symbols_within(all_rows) 
   end
 
-  def does_row_match_condition
-    rows_for_3x3_grid.each do |row| 
-      all_cells_match = row.all? {|cell| cell == row[0]}
-      if all_cells_match and not_nil_symbol(row[0])
-        return row[0]
+  def has_row_of_matching_symbols_within(all_rows)
+    has_winning_row(all_rows) ? true : false
+  end
+
+  def has_winning_row(all_rows)
+    not_nil_row(find_winning_row_from(all_rows))
+  end
+
+  def find_winning_row_from(rows)
+    all_rows.each do |row| 
+      all_cells_match = row.all? {|cell| cell == row.first}
+      if all_cells_match and not_nil_symbol(row.first)
+        return row
       end
     end 
     return nil
   end
 
-  def indices_for_rows
+  def not_nil_row(row)
+    !row.nil?
+  end
+  def all_rows
+    all_rows = []
+    all_rows += rows 
+    all_rows += columns 
+    all_rows += diagonals
+  end
+
+  def not_nil_symbol(cell)
+    !cell.nil?
+  end
+
+  def rows
     rows = [] 
     rows << [grid.at(0), grid.at(1), grid.at(2)] 
     rows << [grid.at(3), grid.at(4), grid.at(5)] 
     rows << [grid.at(6), grid.at(7), grid.at(8)]
   end
 
-  def indices_for_columns
+  def columns
     columns = []
     columns << [grid.at(0), grid.at(3), grid.at(6)]
     columns << [grid.at(1), grid.at(4), grid.at(7)]
     columns << [grid.at(2), grid.at(5), grid.at(8)]
   end
 
-  def indices_for_diagonals
+  def diagonals
     diagonals = []
     diagonals << [grid.at(0),grid.at(4), grid.at(8)]
     diagonals << [grid.at(2), grid.at(4), grid.at(6)]
