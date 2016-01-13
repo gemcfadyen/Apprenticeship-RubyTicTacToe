@@ -1,7 +1,7 @@
 class PromptWriter
   def initialize(std_out)
     @std_out = std_out
-
+  end
   def ask_for_next_move
     std_out.puts "Please enter your next move"
   end
@@ -26,7 +26,7 @@ class PromptWriter
   private
 
   attr_reader :std_out 
-  
+
   def divider
     " | " 
   end
@@ -52,7 +52,7 @@ class PromptWriter
     cell.nil? ? one_based(cell_number).to_s : cell.to_s 
   end
 
-   def one_based(index)
+  def one_based(index)
     index + 1
   end
 

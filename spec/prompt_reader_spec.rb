@@ -1,6 +1,5 @@
 require 'prompt_reader'
 
-
 RSpec.describe PromptReader do
 
   it "reads input" do

@@ -5,7 +5,7 @@ class Board
   end
 
   def is_empty
-    !(grid.include?(:X) or grid.include?(:O))
+    !(grid.include?(PlayerSymbols::X) or grid.include?(PlayerSymbols::O))
   end
 
   def make_move(index, symbol)
@@ -29,7 +29,7 @@ class Board
 
   def winning_symbol
     winning_row = find_winning_row_from(all_rows)
-    winning_row.nil? ? nil : winning_row[0] 
+    winning_row.nil? ? nil : winning_row.first 
   end
 
   def grid_for_display

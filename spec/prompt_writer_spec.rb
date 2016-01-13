@@ -1,5 +1,6 @@
 require 'prompt_writer'
 require 'board'
+require 'player_symbols'
 
 RSpec.describe PromptWriter do
   before (:each) do
@@ -9,12 +10,11 @@ RSpec.describe PromptWriter do
 
   it "prompts for an input" do
     @prompt.ask_for_next_move
-
     expect(@std_out.string).to eq "Please enter your next move\n"
   end
 
   it "displays winning message for X" do
-    @prompt.show_winning_message(:X) 
+    @prompt.show_winning_message(X) 
     expect(@std_out.string).to eq "The game has been won by X!\n"
   end
 
@@ -30,7 +30,7 @@ RSpec.describe PromptWriter do
   end
 
   it "displays board with occupied cells" do
-    board = Board.new([:X, nil, nil, :O, :X, nil, nil, nil, nil])
+    board = Board.new([X, nil, nil, O, X, nil, nil, nil, nil])
     @prompt.show_board(board)
     expect(@std_out.string).to eq(" | X | 2 | 3 |\n | O | X | 6 |\n | 7 | 8 | 9 |\n")
   end
