@@ -9,8 +9,8 @@ class Board
   end
 
   def make_move(index, symbol)
-    grid_before_index = copy_portion_of_grid(index)
-    grid_after_index = copy_portion_of_grid(grid.size - (index + 1))  
+    grid_before_index = copy_portion_of_grid(0, index)
+    grid_after_index = copy_portion_of_grid(index + 1, grid.size)   
 
     Board.new(Array.new(grid_before_index + [symbol] + grid_after_index))
   end
@@ -66,12 +66,8 @@ class Board
 
   attr_reader :grid
 
-  def copy_portion_of_grid(size_of_portion_to_copy)
-    temp_array = Array.new(size_of_portion_to_copy)
-    (0...size_of_portion_to_copy).each do |i| 
-      temp_array[i] = grid[i] 
-    end
-    temp_array
+  def copy_portion_of_grid(start_index, end_index)
+    grid[start_index...end_index] 
   end
 
   def all_winning_combinations_for_3x3_grid
