@@ -1,10 +1,8 @@
 class PromptWriter
-  attr_reader :std_out 
-
   def initialize(std_out)
     @std_out = std_out
   end
-
+  
   def ask_for_next_move
     std_out.puts "Please enter your next move"
   end
@@ -18,13 +16,7 @@ class PromptWriter
   end
 
   def show_board(board)
-    board_to_display = ""
-    cells = board.grid_for_display.split("$")
-
-    cells.each_index do |index|
-      board_to_display = board_to_display + divider + display_cell(cells, index)
-      board_to_display += add_new_line_if_end_of_row(index)
-    end
+    board_to_display = format_board(board)
     std_out.puts board_to_display
   end
 
@@ -34,23 +26,38 @@ class PromptWriter
 
   private
 
+  attr_reader :std_out 
+
   def divider
     " | " 
   end
 
-  def display_cell(cells, index)
-    cells[index] == "empty" ? one_based(index).to_s : cells[index].to_s
+  def format_board(board)
+    board_to_display = ""  
+    cell_number = 0 
+    board.grid_for_display.each do |row|
+      row.each do |cell| 
+        board_to_display += format_row(cell, cell_number)
+        cell_number+=1
+      end
+      board_to_display += new_line
+    end
+    board_to_display   
+  end
+
+  def format_row(cell_content, cell_number) 
+    divider + display_cell(cell_content, cell_number)
+  end
+
+  def display_cell(cell, cell_number)
+    cell.nil? ? one_based(cell_number).to_s : cell.to_s 
   end
 
   def one_based(index)
     index + 1
   end
 
-  def add_new_line_if_end_of_row(index)
-    if one_based(index) % 3 == 0
-      return " |\n"
-    end
-    return ""
+  def new_line
+    return " |\n"
   end
-
 end
