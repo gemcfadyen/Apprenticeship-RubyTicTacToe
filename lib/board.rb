@@ -32,7 +32,7 @@ class Board
   end
 
   def vacant_indices
-    grid.each_index.select{|v| v != PlayerSymbols::X && v != PlayerSymbols::O}
+    grid.each_index.select{|v| grid[v].nil?}
   end
 
   def grid_for_display

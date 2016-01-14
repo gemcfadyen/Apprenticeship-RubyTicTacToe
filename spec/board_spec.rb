@@ -114,7 +114,12 @@ RSpec.describe Board do
     expect(board.winning_symbol).to be nil 
   end
 
-  it "gives all vacant indices" do
+  it "gives all vacant indices on an empty board" do
     expect(board.vacant_indices).to include(0, 1, 2, 3, 4, 5, 6, 7, 8)
+  end
+
+  it "gives all vacant indices on a board with moves" do
+    board = Board.new([X, nil, O, nil, nil, nil, nil, nil, nil])
+    expect(board.vacant_indices).not_to include(0, 2)
   end
 end
