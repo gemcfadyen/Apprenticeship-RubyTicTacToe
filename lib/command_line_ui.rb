@@ -7,12 +7,20 @@ class CommandLineUI
 
   def get_move_from_player
     writer.ask_for_next_move
-    value = reader.get_input
-    return value.to_i
+    value = reader.get_input  
 
+    while not_an_integer(value) 
+      writer.ask_for_next_move
+      value = reader.get_input 
+    end
+    return value.to_i
   end
 
   private
+
+  def not_an_integer(value)
+    !(true if Integer(value) rescue false)
+  end
 
   attr_reader :writer
   attr_reader :reader
