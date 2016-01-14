@@ -6,10 +6,12 @@ class CommandLineUI
   end
 
   def get_move_from_player(board)
+    writer.show_board(board)
     value = get_user_input_for_move
       
     while !valid?(value, board) 
       writer.error_message
+      writer.show_board(board)
       value = get_user_input_for_move   
     end
     return value.to_i
@@ -22,6 +24,7 @@ class CommandLineUI
   end
 
   def print_game_status(board)
+    writer.show_board(board)
     if board.has_winning_combination
       return writer.show_winning_message(board.winning_symbol)
     end

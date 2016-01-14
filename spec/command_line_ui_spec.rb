@@ -12,6 +12,7 @@ RSpec.describe CommandLineUI do
 
   it "reads move from user" do
     expect(@writer_spy).to receive(:ask_for_next_move)
+    expect(@writer_spy).to receive(:show_board)
     expect(@reader_spy).to receive(:get_input).and_return("1")
 
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
@@ -21,6 +22,7 @@ RSpec.describe CommandLineUI do
 
   it "reprompts move from user when an alpha character entered" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
+    expect(@writer_spy).to receive(:show_board).twice
     expect(@reader_spy).to receive(:get_input).and_return("a", "3")
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
@@ -31,6 +33,7 @@ RSpec.describe CommandLineUI do
   it "reprompts move from user when number is outside grid" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
     expect(@reader_spy).to receive(:get_input).and_return("32", "7")
+    expect(@writer_spy).to receive(:show_board).twice
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
@@ -40,6 +43,7 @@ RSpec.describe CommandLineUI do
   it "reprompts move from user when an occupied position is entered" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
     expect(@reader_spy).to receive(:get_input).and_return("1", "2")
+    expect(@writer_spy).to receive(:show_board).twice
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
@@ -73,6 +77,7 @@ RSpec.describe CommandLineUI do
 
   it "prints winning game status" do
     expect(@writer_spy).to receive(:show_winning_message)
+    expect(@writer_spy).to receive(:show_board)
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
     winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, nil, nil, PlayerSymbols::O, PlayerSymbols::O])
@@ -81,10 +86,12 @@ RSpec.describe CommandLineUI do
 
   it "prints draw game status" do
     expect(@writer_spy).to receive(:show_draw_message)
+    expect(@writer_spy).to receive(:show_board)
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
     drawn_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O])
     command_line_ui.print_game_status(drawn_board)  
+
   end
 
 end
