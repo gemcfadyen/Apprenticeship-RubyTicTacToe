@@ -11,4 +11,5 @@ class PromptReader
   private 
   
   attr_reader :std_in
+
 end
