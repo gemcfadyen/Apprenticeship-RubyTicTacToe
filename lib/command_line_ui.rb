@@ -15,6 +15,13 @@ class CommandLineUI
     return value.to_i
   end
 
+
+  def replay?
+    writer.replay
+    replay_option = reader.get_input()
+    return replay_option.upcase == "Y"
+  end
+
   private
   attr_reader :writer
   attr_reader :reader

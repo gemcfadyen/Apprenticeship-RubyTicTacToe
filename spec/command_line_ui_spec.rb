@@ -12,7 +12,7 @@ RSpec.describe CommandLineUI do
 
   it "reads move from user" do
     expect(@writer_spy).to receive(:ask_for_next_move)
-    expect(@reader_spy).to receive(:get_input).and_return("1\n")
+    expect(@reader_spy).to receive(:get_input).and_return("1")
 
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
@@ -21,7 +21,7 @@ RSpec.describe CommandLineUI do
 
   it "reprompts move from user when an alpha character entered" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
-    expect(@reader_spy).to receive(:get_input).and_return("a\n", "3\n")
+    expect(@reader_spy).to receive(:get_input).and_return("a", "3")
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
@@ -30,7 +30,7 @@ RSpec.describe CommandLineUI do
 
   it "reprompts move from user when number is outside grid" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
-    expect(@reader_spy).to receive(:get_input).and_return("32\n", "7\n")
+    expect(@reader_spy).to receive(:get_input).and_return("32", "7")
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
@@ -39,11 +39,35 @@ RSpec.describe CommandLineUI do
 
   it "reprompts move from user when an occupied position is entered" do
     expect(@writer_spy).to receive(:ask_for_next_move).twice
-    expect(@reader_spy).to receive(:get_input).and_return("1\n", "2\n")
+    expect(@reader_spy).to receive(:get_input).and_return("1", "2")
     expect(@writer_spy).to receive(:error_message).once
     command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
 
     board = Board.new([PlayerSymbols::X, nil, nil, nil, nil, nil, nil, nil, nil])
     expect(command_line_ui.get_move_from_player(board)).to be 2
+  end
+
+  it "reads replay option Y" do
+    expect(@writer_spy).to receive(:replay)
+    expect(@reader_spy).to receive(:get_input).and_return("Y")
+    command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
+
+    expect(command_line_ui.replay?).to be true 
+  end
+
+  it "reads replay option y" do
+    expect(@writer_spy).to receive(:replay)
+    expect(@reader_spy).to receive(:get_input).and_return("y")
+    command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
+
+    expect(command_line_ui.replay?).to be true 
+  end
+
+  it "reprompts when invalid replay option provided" do
+    expect(@writer_spy).to receive(:replay)
+    expect(@reader_spy).to receive(:get_input).and_return("Z")
+    command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
+
+    expect(command_line_ui.replay?).to be false 
   end
 end
