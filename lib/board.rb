@@ -31,6 +31,10 @@ class Board
     winning_row.nil? ? nil : winning_row.first 
   end
 
+  def vacant_indices
+    grid.each_index.select{|v| v != PlayerSymbols::X && v != PlayerSymbols::O}
+  end
+
   def grid_for_display
     rows
   end

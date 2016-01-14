@@ -5,24 +5,31 @@ class CommandLineUI
     @reader = reader
   end
 
-  def get_move_from_player
-    writer.ask_for_next_move
-    value = reader.get_input  
-
-    while not_an_integer(value) 
+  def get_move_from_player(board)
+    value = get_user_input_for_move
+      
+    while !valid?(value, board) 
       writer.error_message
-      writer.ask_for_next_move
-      value = reader.get_input 
+      value = get_user_input_for_move   
     end
     return value.to_i
   end
 
   private
-
-  def not_an_integer(value)
-    !(true if Integer(value) rescue false)
-  end
-
   attr_reader :writer
   attr_reader :reader
+
+  def valid?(value, board)
+    one_indexed(board.vacant_indices).include?(value.to_i)
+  end
+
+  def one_indexed(vacant_indices)
+    vacant_indices.collect { |i| i+1 }
+  end
+
+  def get_user_input_for_move
+    writer.ask_for_next_move
+    reader.get_input  
+  end
+
 end
