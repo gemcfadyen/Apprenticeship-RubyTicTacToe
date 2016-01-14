@@ -70,4 +70,21 @@ RSpec.describe CommandLineUI do
 
     expect(command_line_ui.replay?).to be false 
   end
+
+  it "prints winning game status" do
+    expect(@writer_spy).to receive(:show_winning_message)
+    command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
+
+    winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, nil, nil, PlayerSymbols::O, PlayerSymbols::O])
+    command_line_ui.print_game_status(winning_board)  
+  end
+
+  it "prints draw game status" do
+    expect(@writer_spy).to receive(:show_draw_message)
+    command_line_ui = CommandLineUI.new(@writer_spy, @reader_spy)
+
+    drawn_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O])
+    command_line_ui.print_game_status(drawn_board)  
+  end
+
 end
