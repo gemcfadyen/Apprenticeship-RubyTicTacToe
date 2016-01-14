@@ -8,19 +8,14 @@ class CommandLineUI
   def get_move_from_player(board)
     writer.show_board(board)
     value = get_user_input_for_move
-      
-    while !valid?(value, board) 
-      writer.error_message
-      writer.show_board(board)
-      value = get_user_input_for_move   
-    end
-    return value.to_i
+    
+    get_valid_value_after_reprompt(value, board)
   end
 
   def replay?
     writer.replay
     replay_option = reader.get_input()
-    return replay_option.upcase == "Y"
+    replay_option.upcase == "Y"
   end
 
   def print_game_status(board)
@@ -35,8 +30,23 @@ class CommandLineUI
   end
 
   private
+
   attr_reader :writer
   attr_reader :reader
+
+  def get_user_input_for_move
+    writer.ask_for_next_move
+    reader.get_input  
+  end
+
+  def get_valid_value_after_reprompt(value, board)
+    while !valid?(value, board) 
+      writer.error_message
+      writer.show_board(board)
+      value = get_user_input_for_move   
+    end
+    value.to_i    
+  end
 
   def valid?(value, board)
     one_indexed(board.vacant_indices).include?(value.to_i)
@@ -46,9 +56,4 @@ class CommandLineUI
     vacant_indices.collect { |i| i+1 }
   end
 
-  def get_user_input_for_move
-    writer.ask_for_next_move
-    reader.get_input  
   end
-
-end
