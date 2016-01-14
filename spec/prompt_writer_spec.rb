@@ -39,4 +39,9 @@ RSpec.describe PromptWriter do
     @prompt.replay
     expect(@std_out.string).to eq "Play again?\n"
   end
+
+  it "displays error message" do
+    @prompt.error_message
+    expect(@std_out.string).to eq("Incorrect input received!\n")
+  end
 end

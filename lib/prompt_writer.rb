@@ -24,6 +24,9 @@ class PromptWriter
     std_out.puts "Play again?"
   end
 
+  def error_message
+    std_out.puts "Incorrect input received!"
+  end
   private
 
   attr_reader :std_out 
