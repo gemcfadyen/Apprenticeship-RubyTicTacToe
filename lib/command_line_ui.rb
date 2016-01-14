@@ -25,11 +25,11 @@ class CommandLineUI
 
   def print_game_status(board)
     writer.show_board(board)
-    if board.has_winning_combination
+    if board.winning_combination?
       return writer.show_winning_message(board.winning_symbol)
     end
 
-    if !board.has_free_spaces
+    if !board.free_spaces?
       return writer.show_draw_message
     end
   end
