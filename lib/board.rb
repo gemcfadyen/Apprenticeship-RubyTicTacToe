@@ -59,9 +59,7 @@ class Board
   def find_winning_row_from(rows)
     all_rows.each do |row| 
       all_cells_match = row.all? {|cell| cell == row.first}
-      if all_cells_match and not_nil_symbol(row.first)
-        return row
-      end
+      return row if all_cells_match and not_nil_symbol(row.first)
     end 
     return nil
   end

@@ -14,7 +14,7 @@ RSpec.describe PromptWriter do
   end
 
   it "displays winning message for X" do
-    @prompt.show_winning_message(X) 
+    @prompt.show_winning_message(PlayerSymbols::X) 
     expect(@std_out.string).to eq "The game has been won by X!\n"
   end
 
@@ -30,7 +30,7 @@ RSpec.describe PromptWriter do
   end
 
   it "displays board with occupied cells" do
-    board = Board.new([X, nil, nil, O, X, nil, nil, nil, nil])
+    board = Board.new([PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::X, nil, nil, nil, nil])
     @prompt.show_board(board)
     expect(@std_out.string).to eq(" | X | 2 | 3 |\n | O | X | 6 |\n | 7 | 8 | 9 |\n")
   end
