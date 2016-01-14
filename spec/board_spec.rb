@@ -8,12 +8,12 @@ RSpec.describe Board do
   let (:board) {Board.new}
   
   it "is empty on initialisation" do
-    expect(board.is_empty).to be true
+    expect(board.empty?).to be true
   end
 
   it "is not empty when all slots are occupied" do
     full_board = Board.new([X, O, X, O, X, O, X, X, O])
-    expect(full_board.is_empty).to be false
+    expect(full_board.empty?).to be false
   end
 
   it "returns the current grid formation" do
@@ -32,72 +32,72 @@ RSpec.describe Board do
   end
 
   it "has free spaces" do
-    expect(board.has_free_spaces).to be true
+    expect(board.free_spaces?).to be true
   end
 
   it "has no free spaces when all slots are occupied" do
     full_board = Board.new([X, O, X, O, X, O, X, X, O])
-    expect(full_board.has_free_spaces).to be false
+    expect(full_board.free_spaces?).to be false
   end
 
   it "has no winning combination" do
     winning_board = Board.new([O, X, X, nil, nil, nil, nil, nil, nil])
-    expect(winning_board.has_winning_combination).to be false
+    expect(winning_board.winning_combination?).to be false
   end
 
   it "has winning combination of X in top row" do
     winning_board = Board.new([X, X, X, nil, nil, nil, nil, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in middle row" do
     winning_board = Board.new([nil, nil, nil, X, X, X, nil, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in bottom row" do
     winning_board = Board.new([nil, nil, nil, nil, nil, nil, X, X, X])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in left column" do
     winning_board = Board.new([X, nil, nil, X, nil, nil, X, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in middle column" do
     winning_board = Board.new([nil, X, nil, nil, X, nil, nil, X, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in right column" do
     winning_board = Board.new([nil, nil, X, nil, nil, X, nil, nil, X])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in first diagonal" do
     winning_board = Board.new([X, nil, nil, nil, X, nil, nil, nil, X])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of X in second diagonal" do
     winning_board = Board.new([nil, nil, X, nil, X, nil, X, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of O in top row" do
     winning_board = Board.new([O, O, O, nil, nil, nil, nil, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of O in left column" do
     winning_board = Board.new([O, nil, nil, O, nil, nil, O, nil, nil])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning combination of O in first diagonal" do
     winning_board = Board.new([O, nil, nil, nil, O, nil, nil, nil, O])
-    expect(winning_board.has_winning_combination).to be true
+    expect(winning_board.winning_combination?).to be true
   end
 
   it "has winning symbol X" do
