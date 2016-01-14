@@ -10,6 +10,7 @@ class CommandLineUI
     value = reader.get_input  
 
     while not_an_integer(value) 
+      writer.error_message
       writer.ask_for_next_move
       value = reader.get_input 
     end
