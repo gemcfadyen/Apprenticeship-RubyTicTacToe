@@ -7,7 +7,10 @@ class CommandLineUI
 
   def get_move_from_player
     writer.ask_for_next_move
-    reader.get_input
+    value = reader.get_input
+    puts 'value read in is: ' + value.to_s
+    return value
+
   end
 
   private
