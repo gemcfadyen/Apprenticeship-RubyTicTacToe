@@ -1,0 +1,19 @@
+require 'human_player'
+require 'board'
+require 'player_symbols'
+
+RSpec.describe HumanPlayer do
+  before (:each) do
+    @command_line_interface_spy = instance_double("CommandLineUI")
+  end
+
+  it "chooses a move on the board" do
+    expect(@command_line_interface).to receive(:get_move_from_player) { 1 }
+    human =  HumanPlayer.new(@command_line_interface)
+
+     updated_board = human.take_move(Board.new)
+
+    expect(updated_board.get_symbol_at(1)).to be PlayerSymbols::X
+  end
+
+end

@@ -56,4 +56,5 @@ class CommandLineUI
     vacant_indices.collect { |i| i+1 }
   end
 
-  end
+ 
+end
