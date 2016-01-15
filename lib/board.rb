@@ -44,11 +44,10 @@ class Board
   attr_reader :grid
 
   def find_winning_row_from(rows)
-    rows.each do |row| 
-      all_cells_match = row.all? {|cell| cell == row.first}
-      return row if all_cells_match && not_nil_symbol(row.first)
-    end 
-    return nil
+    rows.find do |row|
+       all_cells_match = row.all? {|cell| cell == row.first}
+       all_cells_match && not_nil_symbol(row.first)
+    end
   end
 
   def not_nil_row(row)

@@ -26,13 +26,13 @@ RSpec.describe PromptWriter do
   it "displays empty board" do
     board = Board.new
     @prompt.show_board(board)
-    expect(@std_out.string).to eq(" | 1 | 2 | 3 |\n | 4 | 5 | 6 |\n | 7 | 8 | 9 |\n")
+    expect(@std_out.string).to eq("1 | 2 | 3\n4 | 5 | 6\n7 | 8 | 9\n")
   end
 
   it "displays board with occupied cells" do
     board = Board.new([PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::X, nil, nil, nil, nil])
     @prompt.show_board(board)
-    expect(@std_out.string).to eq(" | X | 2 | 3 |\n | O | X | 6 |\n | 7 | 8 | 9 |\n")
+    expect(@std_out.string).to eq("X | 2 | 3\nO | X | 6\n7 | 8 | 9\n")
   end
 
   it "displays replay option" do
