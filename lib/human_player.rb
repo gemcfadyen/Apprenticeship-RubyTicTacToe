@@ -6,7 +6,7 @@ class HumanPlayer
 
   def take_move(board)
     position = command_line_interface.get_move_from_player(board)
-    board.make_move(position, PlayerSymbols::X)
+    board.make_move(position, symbol)
   end
 
   def game_symbol
@@ -14,6 +14,8 @@ class HumanPlayer
   end
 
   private 
+
   attr_reader :command_line_interface
   attr_reader :symbol
+
 end
