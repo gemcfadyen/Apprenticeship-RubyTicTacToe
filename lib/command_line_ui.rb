@@ -31,8 +31,7 @@ class CommandLineUI
 
   private
 
-  attr_reader :writer
-  attr_reader :reader
+  attr_reader :writer, :reader
 
   def get_user_input_for_move
     writer.ask_for_next_move
@@ -43,7 +42,7 @@ class CommandLineUI
     while !valid?(value, board) 
       writer.error_message
       writer.show_board(board)
-      value = get_user_input_for_move   
+     value = get_user_input_for_move   
     end
     value.to_i    
   end
