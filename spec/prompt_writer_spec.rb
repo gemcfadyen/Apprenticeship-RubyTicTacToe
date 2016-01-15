@@ -1,6 +1,7 @@
 require 'prompt_writer'
 require 'board'
 require 'player_symbols'
+require 'replay_option'
 
 RSpec.describe PromptWriter do
   let(:std_out) { StringIO.new }
@@ -35,7 +36,7 @@ RSpec.describe PromptWriter do
 
   it "displays replay option" do
     prompt.replay
-    expect(std_out.string).to eq "Play again?\n"
+    expect(std_out.string).to eq "Play again? [Y to replay]\n"
   end
 
   it "displays error message" do

@@ -15,7 +15,7 @@ class CommandLineUI
   def replay?
     writer.replay
     replay_option = reader.get_input()
-    replay_option.upcase == "Y"
+    replay_option.upcase == ReplayOption::Y 
   end
 
   def print_game_status(board)
@@ -40,8 +40,8 @@ class CommandLineUI
 
   def get_validated_move(value, board)
     while !valid?(value, board) 
-      writer.error_message
       writer.show_board(board)
+      writer.error_message
       value = get_user_input_for_move   
     end
     value.to_i    

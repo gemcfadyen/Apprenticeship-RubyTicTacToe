@@ -3,16 +3,17 @@
 ##Setup Load Path
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
-require 'command_line_app.rb'
-require 'command_line_ui.rb'
-require 'board_factory.rb'
-require 'player_factory.rb'
-require 'prompt_writer.rb'
-require 'prompt_reader.rb'
-require 'game.rb'
-require 'board.rb'
-require 'player_symbols.rb'
-require 'human_player.rb'
+require 'command_line_app'
+require 'command_line_ui'
+require 'board_factory'
+require 'player_factory'
+require 'prompt_writer'
+require 'prompt_reader'
+require 'game'
+require 'board'
+require 'player_symbols'
+require 'human_player'
+require 'replay_option'
 
 writer = PromptWriter.new($stdout)
 reader = PromptReader.new($stdin)
