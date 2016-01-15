@@ -5,7 +5,7 @@ class HumanPlayer
   end
 
   def choose_move(board)
-    position = command_line_interface.get_move_from_player(board)
+    command_line_interface.get_move_from_player(board)
   end
 
   def game_symbol
