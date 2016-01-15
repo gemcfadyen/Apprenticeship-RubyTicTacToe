@@ -20,7 +20,6 @@ RSpec.describe HumanPlayer do
 
   it "has a player symbol" do 
     expect(@human.game_symbol).to be PlayerSymbols::X
-
   end
 
 end

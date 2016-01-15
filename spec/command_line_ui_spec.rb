@@ -91,7 +91,6 @@ RSpec.describe CommandLineUI do
 
     drawn_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O])
     command_line_ui.print_game_status(drawn_board)  
-
   end
 
 end
