@@ -16,10 +16,10 @@ class Game
 
   private
 
-  attr_reader :board
-  attr_reader :players
+  attr_reader :board, :players
 
   def toggle_player(current_player_index)
     current_player_index == 1 ? 0 : 1
   end
+
 end

@@ -18,4 +18,8 @@ RSpec.describe Game do
     game.play
   end
 
+#  it "game is won when there is a winning combination in the board" do
+#    winning_board =  Board.new([X, X, X, nil, nil, O, O, nil])
+#  end
+#
 end

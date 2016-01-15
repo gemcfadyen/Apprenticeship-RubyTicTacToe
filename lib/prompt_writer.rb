@@ -52,6 +52,6 @@ class PromptWriter
   end
 
   def new_line
-    return "\n"
+    "\n"
   end
 end
