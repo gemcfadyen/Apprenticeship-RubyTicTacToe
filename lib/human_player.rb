@@ -14,7 +14,5 @@ class HumanPlayer
 
   private 
 
-  attr_reader :command_line_interface
-  attr_reader :symbol
-
+  attr_reader :command_line_interface, :symbol
 end

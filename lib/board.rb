@@ -84,5 +84,4 @@ class Board
       [grid.at(2), grid.at(4), grid.at(6)]
     ]
   end
-
 end

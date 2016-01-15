@@ -108,5 +108,4 @@ RSpec.describe CommandLineUI do
     
     command_line_ui.print_game_status(drawn_board)  
   end
-
 end

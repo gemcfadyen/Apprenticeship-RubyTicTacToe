@@ -54,5 +54,4 @@ class CommandLineUI
   def one_indexed(vacant_indices)
     vacant_indices.collect { |i| i+1 }
   end
-
 end
