@@ -21,7 +21,7 @@ RSpec.describe CommandLineUI do
   it "reads move from user" do
     allow(reader_spy).to receive(:get_input).and_return("1")
 
-    expect(command_line_ui.get_move_from_player(Board.new)).to be 1 
+    expect(command_line_ui.get_move_from_player(Board.new)).to be 0
   end
 
   it "shows board when asking for move" do
@@ -51,7 +51,7 @@ RSpec.describe CommandLineUI do
   it "reprompts move from user when an alpha character entered" do
     allow(reader_spy).to receive(:get_input).and_return("a", "3")
 
-    expect(command_line_ui.get_move_from_player(Board.new)).to be 3
+    expect(command_line_ui.get_move_from_player(Board.new)).to be 2
 
     expect(writer_spy).to have_received(:ask_for_next_move).twice
   end
@@ -59,7 +59,7 @@ RSpec.describe CommandLineUI do
   it "reprompts move from user when number is outside grid" do
     allow(reader_spy).to receive(:get_input).and_return("32", "7")
 
-    expect(command_line_ui.get_move_from_player(Board.new)).to be 7
+    expect(command_line_ui.get_move_from_player(Board.new)).to be 6
 
     expect(writer_spy).to have_received(:ask_for_next_move).twice
   end
@@ -68,7 +68,7 @@ RSpec.describe CommandLineUI do
     allow(reader_spy).to receive(:get_input).and_return("1", "2")
     board = Board.new([PlayerSymbols::X, nil, nil, nil, nil, nil, nil, nil, nil])
 
-    expect(command_line_ui.get_move_from_player(board)).to be 2
+    expect(command_line_ui.get_move_from_player(board)).to be 1
   end
 
   it "reads replay option Y" do
