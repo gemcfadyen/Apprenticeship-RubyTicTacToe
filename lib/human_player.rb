@@ -4,9 +4,8 @@ class HumanPlayer
     @symbol = symbol
   end
 
-  def take_move(board)
+  def choose_move(board)
     position = command_line_interface.get_move_from_player(board)
-    board.make_move(position, symbol)
   end
 
   def game_symbol

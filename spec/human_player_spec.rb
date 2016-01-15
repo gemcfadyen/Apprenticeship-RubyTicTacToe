@@ -13,9 +13,9 @@ RSpec.describe HumanPlayer do
   it "chooses a move on the board" do
     expect(@command_line_interface_spy).to receive(:get_move_from_player) { 1 }
 
-    updated_board = @human.take_move(Board.new)
+    move = @human.choose_move(Board.new)
 
-    expect(updated_board.get_symbol_at(1)).to be PlayerSymbols::X
+    expect(move).to be 1 
   end
 
   it "has a player symbol" do 
