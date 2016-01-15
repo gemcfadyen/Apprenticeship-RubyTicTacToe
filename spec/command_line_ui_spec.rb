@@ -90,10 +90,9 @@ RSpec.describe CommandLineUI do
 
   it "prints winning game status" do
     winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, nil, nil, PlayerSymbols::O, PlayerSymbols::O])
-
+    expect(writer_spy).to receive(:show_winning_message)
+    
     command_line_ui.print_game_status(winning_board)  
-
-    expect(writer_spy).to respond_to(:show_winning_message)
   end
 
   it "prints winning board" do
@@ -106,6 +105,7 @@ RSpec.describe CommandLineUI do
   it "prints draw game status" do
     drawn_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O])
     expect(writer_spy).to receive(:show_draw_message)
+    
     command_line_ui.print_game_status(drawn_board)  
   end
 
