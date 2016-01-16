@@ -2,7 +2,7 @@ class PromptWriter
   def initialize(std_out)
     @std_out = std_out
   end
-  
+
   def ask_for_next_move
     std_out.puts "Please enter your next move"
   end
@@ -24,6 +24,9 @@ class PromptWriter
     std_out.puts "Play again?"
   end
 
+  def error_message
+    std_out.puts "Incorrect input received!"
+  end
   private
 
   attr_reader :std_out 
@@ -33,31 +36,22 @@ class PromptWriter
   end
 
   def format_board(board)
-    board_to_display = ""  
     cell_number = 0 
-    board.grid_for_display.each do |row|
-      row.each do |cell| 
-        board_to_display += format_row(cell, cell_number)
-        cell_number+=1
+    divided_rows = board.grid_for_display.map do |row|
+      formatted_cells = row.map do |cell|
+        cell_number += 1
+        display_cell(cell, cell_number)
       end
-      board_to_display += new_line
+      formatted_cells.join(divider)
     end
-    board_to_display   
-  end
-
-  def format_row(cell_content, cell_number) 
-    divider + display_cell(cell_content, cell_number)
+    divided_rows.join(new_line)
   end
 
   def display_cell(cell, cell_number)
-    cell.nil? ? one_based(cell_number).to_s : cell.to_s 
-  end
-
-  def one_based(index)
-    index + 1
+    cell.nil? ? cell_number.to_s : cell.to_s 
   end
 
   def new_line
-    return " |\n"
+    return "\n"
   end
 end
