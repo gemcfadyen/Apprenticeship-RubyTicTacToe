@@ -16,41 +16,41 @@ RSpec.describe CommandLineApp do
   let(:board_factory_spy) { instance_double(BoardFactory).as_null_object }
   let(:board_spy) { instance_double(Board).as_null_object }
 
-  it "starts game and gets status" do
-    command_line_app.start(game_spy)
+  it "play single round of game and gets status" do
+    command_line_app.play_single_round(game_spy)
 
     expect(game_spy).to have_received(:play)
   end
 
   it "gets game status" do
-    command_line_app.start(game_spy)
+    command_line_app.play_single_round(game_spy)
 
     expect(command_line_ui_spy).to have_received(:print_game_status)
   end
 
-  it "creates board on setup" do
+  it "creates board on start" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
 
-    command_line_app.setup
+    command_line_app.start
 
     expect(board_factory_spy).to have_received(:create_board)
   end
 
-  it "creates players on setup" do
+  it "creates players on start" do
     allow(player_factory_spy).to receive(:create_human_vs_human_players).and_return(["player1", "player2"])
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
 
-    command_line_app.setup
+    command_line_app.start
 
     expect(player_factory_spy).to have_received(:create_human_vs_human_players)
   end
 
   it "asks user to replay" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
-    
-    command_line_app.setup
+
+    command_line_app.start
 
     expect(command_line_ui_spy).to have_received(:replay?)
   end
@@ -59,8 +59,8 @@ RSpec.describe CommandLineApp do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy).twice 
     allow(command_line_ui_spy).to receive(:replay?).and_return(true, false)
 
-    command_line_app.setup
-    
+    command_line_app.start
+
     expect(command_line_ui_spy).to have_received(:replay?).twice
     expect(command_line_ui_spy).to have_received(:print_game_status).twice
   end
