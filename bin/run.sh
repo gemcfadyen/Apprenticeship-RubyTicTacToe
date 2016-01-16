@@ -23,4 +23,4 @@ board_factory = BoardFactory.new
 player_factory = PlayerFactory.new
 
 command_line_app = CommandLineApp.new(command_line_ui, board_factory, player_factory)
-command_line_app.setup
+command_line_app.start
