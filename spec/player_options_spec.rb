@@ -13,4 +13,12 @@ RSpec.describe PlayerOptions do
   it "has player option Ai vs Human" do
     expect(PlayerOptions::AI_VS_HUMAN).to eq ("Ai vs Human")
   end
+
+  it "has valid player option ids" do
+    expect(PlayerOptions::valid_ids).to eq ([1, 2, 3])
+  end
+
+  it "gets player type for id" do
+    expect(PlayerOptions::get_player_type_for_id(1)).to eq (PlayerOptions::HUMAN_VS_HUMAN)
+  end
 end

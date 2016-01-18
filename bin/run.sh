@@ -13,6 +13,7 @@ require 'game'
 require 'board'
 require 'player_symbols'
 require 'human_player'
+require 'ai_player'
 require 'replay_option'
 require 'player_options'
 

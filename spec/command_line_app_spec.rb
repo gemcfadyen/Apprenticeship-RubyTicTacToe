@@ -38,6 +38,16 @@ RSpec.describe CommandLineApp do
     expect(board_factory_spy).to have_received(:create_board)
   end
 
+  it "asks for player types" do
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
+    allow(command_line_ui_spy).to receive(:replay?).and_return(false)
+    
+    command_line_app.start
+
+    expect(board_factory_spy).to have_received(:create_board)
+    expect(command_line_ui_spy).to have_received(:get_player_option)
+  end
+
   it "creates players on start" do
     allow(player_factory_spy).to receive(:create_players).and_return(["player1", "player2"])
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)

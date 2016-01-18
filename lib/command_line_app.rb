@@ -9,7 +9,8 @@ class CommandLineApp
   def start
     replay_option = true 
     while user_wants_to_play?(replay_option)
-      play_single_round(setup_game)
+      player_option = command_line_ui.get_player_option
+      play_single_round(setup_game(player_option))
       replay_option = command_line_ui.replay?
     end
   end
@@ -27,7 +28,7 @@ class CommandLineApp
     replay_option == true
   end
 
-  def setup_game
-    Game.new(board_factory.create_board, player_factory.create_players(PlayerOptions::HUMAN_VS_HUMAN, command_line_ui)) 
+  def setup_game(player_option)
+    Game.new(board_factory.create_board, player_factory.create_players(player_option, command_line_ui)) 
   end
 end

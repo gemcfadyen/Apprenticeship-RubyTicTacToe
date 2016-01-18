@@ -13,8 +13,6 @@ class AiPlayer
   end
 
   def minimax(board, is_max_player, depth)
-    p "inside minimax with board " + board.grid_for_display.to_s
-
     best_score_so_far = initial_score(is_max_player)  
 
     if round_is_over(board, depth)
@@ -22,16 +20,12 @@ class AiPlayer
     end
 
     board.vacant_indices.each do |i|  
-      p " is_max_player: " + is_max_player.to_s + "  vacant index " + i.to_s
 
       new_board = board.make_move(i, current_players_symbol(is_max_player))
       result = minimax(new_board, !is_max_player, depth - 1)
-
-      p "returned from minimax..."
       best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.get_score)
     end
 
-    p "final score and move " + best_score_so_far.get_score.to_s + " " + best_score_so_far.get_move.to_s
     best_score_so_far
   end
 
@@ -82,14 +76,8 @@ class AiPlayer
 
   def update_score(is_max_player, move, best_score_so_far, result_score)
     if is_max_player && (result_score >= best_score_so_far.get_score)
-      p "max player - setting move to: " + move.to_s
-      p "max player - setting score to: " + result_score.to_s
-
       return ScoredMove.new(move, result_score)
     elsif !is_max_player && (result_score < best_score_so_far.get_score)
-      p "min player - setting move to: " + move.to_s
-      p "min player - setting score to: " + result_score.to_s
-
       return ScoredMove.new(move, result_score)
     end
     return best_score_so_far
