@@ -1,4 +1,5 @@
 class AiPlayer
+
   def initialize(symbol)
     @symbol = symbol
   end
@@ -15,7 +16,7 @@ class AiPlayer
     p "inside minimax with board " + board.grid_for_display.to_s
 
     best_score_so_far = initial_score(is_max_player)  
-    
+
     if round_is_over(board, depth)
       return score(board, depth)
     end
@@ -27,24 +28,10 @@ class AiPlayer
       result = minimax(new_board, !is_max_player, depth - 1)
 
       p "returned from minimax..."
-
-      if(is_max_player && (result.get_score >= best_score_so_far.get_score))
-        p "max player - setting move to: " + i.to_s
-        p "max player - setting score to: " + result.get_score.to_s
-
-        best_score_so_far.set_move(i) 
-        best_score_so_far.set_score(result.get_score)
-      elsif !is_max_player && (result.get_score < best_score_so_far.get_score)
-        p "min player - setting move to: " + i.to_s
-        p "min player - setting score to: " + result.get_score.to_s
-
-        best_score_so_far.set_move(i)
-        best_score_so_far.set_score(result.get_score)
-      end
+      best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.get_score)
     end
 
     p "final score and move " + best_score_so_far.get_score.to_s + " " + best_score_so_far.get_move.to_s
-
     best_score_so_far
   end
 
@@ -53,7 +40,7 @@ class AiPlayer
   attr_reader :symbol
 
   def round_is_over(board, depth)
-    depth == 0 || board.winning_combination?
+     board.winning_combination? || depth == 0 
   end
 
   def score(board, depth) 
@@ -77,6 +64,21 @@ class AiPlayer
 
   def current_players_symbol(is_max_player)
     (is_max_player == true) ? game_symbol : PlayerSymbols::opponent(game_symbol) 
+  end
+
+  def update_score(is_max_player, move, best_score_so_far, result_score)
+    if(is_max_player && (result_score >= best_score_so_far.get_score))
+      p "max player - setting move to: " + move.to_s
+      p "max player - setting score to: " + result_score.to_s
+
+      return ScoredMove.new(move, result_score)
+    elsif !is_max_player && (result_score < best_score_so_far.get_score)
+      p "min player - setting move to: " + move.to_s
+      p "min player - setting score to: " + result_score.to_s
+
+      return ScoredMove.new(move, result_score)
+    end
+    return best_score_so_far
   end
 end
 
