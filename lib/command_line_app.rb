@@ -28,6 +28,6 @@ class CommandLineApp
   end
 
   def setup_game
-    Game.new(board_factory.create_board, player_factory.create_human_vs_human_players(command_line_ui)) 
+    Game.new(board_factory.create_board, player_factory.create_players(PlayerOptions::HUMAN_VS_HUMAN, command_line_ui)) 
   end
 end
