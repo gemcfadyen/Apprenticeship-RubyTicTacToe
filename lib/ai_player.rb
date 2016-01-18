@@ -7,6 +7,9 @@ class AiPlayer
     symbol
   end
 
+  def choose_move(board)
+    minimax(boar)
+  end
 
   def minimax(board)
     if board.winning_combination?
