@@ -15,9 +15,17 @@ RSpec.describe AiPlayer do
   end
 
   it "scores one if computer wins" do
-   winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::O, nil, nil])
-    
+    winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::O, nil, nil])
+
     expect(ai_player.minimax(winning_board)).to be(1)
+  end
+
+  it "scores negative one if opponent wins" do
+    winning_board = Board.new([PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, nil, nil, PlayerSymbols::X, PlayerSymbols::X, nil, nil])
+
+    expect(ai_player.minimax(winning_board)).to be(-1)
+
+
   end
 end
 

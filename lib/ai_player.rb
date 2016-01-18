@@ -9,11 +9,15 @@ class AiPlayer
 
 
   def minimax(board)
-    if(board.winning_combination?)
-      return 1
+    if board.winning_combination?
+      if board.winning_symbol == game_symbol
+        return 1
+      else 
+        return -1
+      end
     end
-    
-    if(!board.free_spaces?)
+
+    if !board.free_spaces?
       return 0
     end
   end
