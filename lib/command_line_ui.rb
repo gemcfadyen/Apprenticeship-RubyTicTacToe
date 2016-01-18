@@ -8,14 +8,14 @@ class CommandLineUI
   def get_move_from_player(board)
     writer.show_board(board)
     value = get_user_input_for_move
-    
-    get_valid_value_after_reprompt(value, board)
+
+    zero_indexed(get_validated_move(value, board))
   end
 
   def replay?
     writer.replay
     replay_option = reader.get_input()
-    replay_option.upcase == "Y"
+    replay_option.upcase == ReplayOption::Y 
   end
 
   def print_game_status(board)
@@ -38,11 +38,11 @@ class CommandLineUI
     reader.get_input  
   end
 
-  def get_valid_value_after_reprompt(value, board)
+  def get_validated_move(value, board)
     while !valid?(value, board) 
-      writer.error_message
       writer.show_board(board)
-     value = get_user_input_for_move   
+      writer.error_message
+      value = get_user_input_for_move   
     end
     value.to_i    
   end
@@ -53,5 +53,9 @@ class CommandLineUI
 
   def one_indexed(vacant_indices)
     vacant_indices.collect { |i| i+1 }
+  end
+
+  def zero_indexed(value)
+    value - 1
   end
 end

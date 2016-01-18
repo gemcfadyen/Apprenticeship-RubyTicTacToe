@@ -21,7 +21,7 @@ class PromptWriter
   end
 
   def replay
-    std_out.puts "Play again?"
+    std_out.puts "Play again? [#{ReplayOption::Y} to replay]"
   end
 
   def error_message
@@ -52,6 +52,6 @@ class PromptWriter
   end
 
   def new_line
-    return "\n"
+    "\n"
   end
 end
