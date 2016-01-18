@@ -1,5 +1,6 @@
 require 'ai_player'
 require 'player_symbols'
+require 'board'
 
 RSpec.describe AiPlayer do
   let(:ai_player) { AiPlayer.new(PlayerSymbols::X) }
@@ -9,7 +10,14 @@ RSpec.describe AiPlayer do
   end
 
   it "scores zero when a draw is made" do
-    expect(ai_player.minimax).to be (0)
+    draw_board = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X])
+    expect(ai_player.minimax(draw_board)).to be (0)
+  end
+
+  it "scores one if computer wins" do
+   winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::O, nil, nil])
+    
+    expect(ai_player.minimax(winning_board)).to be(1)
   end
 end
 
