@@ -40,34 +40,48 @@ class AiPlayer
   attr_reader :symbol
 
   def round_is_over(board, depth)
-     board.winning_combination? || depth == 0 
+    board.winning_combination? || depth == 0 
   end
 
   def score(board, depth) 
-    if board.winning_symbol == game_symbol
-      return ScoredMove.new(nil, 1 + depth)
+    winning_symbol = board.winning_symbol
+    if maximizing_player_won?(winning_symbol)
+      return MaximisingPlayerWin.new(depth) 
     end
 
-    if board.winning_symbol == PlayerSymbols::opponent(game_symbol)
-      return ScoredMove.new(nil, -1 - depth)
+    if minimizing_player_won?(winning_symbol) 
+      return MinimisingPlayerWin.new(depth)
     end
-    return ScoredMove.new(nil, 0)
+
+    return DrawScoredMove.new
+  end
+
+  def maximizing_player_won?(winners_symbol)
+    symbols_are_equal?(winners_symbol, game_symbol)
+  end
+
+  def minimizing_player_won?(winners_symbol)
+    symbols_are_equal?(winners_symbol, PlayerSymbols::opponent(game_symbol))
+  end
+
+  def symbols_are_equal?(symbol1, symbol2)
+    symbol1 == symbol2
   end
 
   def initial_score(is_max_player)
     if is_max_player
-      best_score_so_far = ScoredMove.new(nil, -2)
+      best_score_so_far = MaximisingPlayerInitialScore.new
     else
-      best_score_so_far = ScoredMove.new(nil, 2)
+      best_score_so_far = MinimisingPlayerInitialScore.new
     end
   end
 
   def current_players_symbol(is_max_player)
-    (is_max_player == true) ? game_symbol : PlayerSymbols::opponent(game_symbol) 
+    is_max_player == true ? game_symbol : PlayerSymbols::opponent(game_symbol) 
   end
 
   def update_score(is_max_player, move, best_score_so_far, result_score)
-    if(is_max_player && (result_score >= best_score_so_far.get_score))
+    if is_max_player && (result_score >= best_score_so_far.get_score)
       p "max player - setting move to: " + move.to_s
       p "max player - setting score to: " + result_score.to_s
 
@@ -83,10 +97,8 @@ class AiPlayer
 end
 
 class ScoredMove
-  def initialize 
-  end
 
-  def initialize(move, score)
+  def initialize(move = nil, score)
     @move = move
     @score = score
   end
@@ -113,3 +125,33 @@ class ScoredMove
   attr_accessor :score
 end
 
+class MaximisingPlayerInitialScore < ScoredMove
+
+  def initialize(move = nil, score = -2)
+    super(move, score)
+  end
+end
+
+class MinimisingPlayerInitialScore < ScoredMove
+  def initialize(move = nil, score = 2)
+    super(move, score)
+  end
+end
+
+class DrawScoredMove < ScoredMove
+  def initialize(move = nil, score = 0)
+    super(move, score)
+  end
+end
+
+class MaximisingPlayerWin < ScoredMove
+  def initialize(move = nil, score)
+    super(move, 1 + score)
+  end
+end
+
+class MinimisingPlayerWin < ScoredMove
+  def initialize(move = nil, score)
+    super(move, -1 - score)
+  end
+end
