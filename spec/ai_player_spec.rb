@@ -23,7 +23,7 @@ RSpec.describe AiPlayer do
   it "scores negative one if opponent wins" do
     winning_board = Board.new([PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, nil, nil, PlayerSymbols::X, PlayerSymbols::X, nil, nil])
 
-    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size).get_score).to be(-1 + winning_board.vacant_indices.size)
+    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size).get_score).to be(-1 - winning_board.vacant_indices.size)
   end
 
   it "takes a winning move on top row" do
@@ -90,51 +90,51 @@ RSpec.describe AiPlayer do
   end
 
   it "takes a blocking move on middle row" do
-    blocking_move_on_middle_row = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil, PlayerSymbols::O, nil, nil, nil, nil])
+    blocking_move_on_middle_row = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, nil, nil, PlayerSymbols::X, nil])
 
     move = ai_player.choose_move(blocking_move_on_middle_row) 
-    expect(move).to eq(7)
+    expect(move).to eq(5)
   end
 
-#  it "takes a blocking move on bottom row" do
-#    blocking_move_on_bottom_row = Board.new([nil, nil, PlayerSymbols::X, nil, nil, PlayerSymbols::X, nil, PlayerSymbols::O, PlayerSymbols::O])
-#
-#    move = ai_player.choose_move(blocking_move_on_bottom_row) 
-#    expect(move).to eq(6)
-#  end
-#
-#  it "takes a blocking move on left column" do
-#    blocking_move_on_left_column = Board.new([PlayerSymbols::O, nil, nil, nil, nil, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil])
-#
-#    move = ai_player.choose_move(blocking_move_on_left_column) 
-#    expect(move).to eq(3)
-#  end
-#
-#  it "takes a blocking move on middle column" do
-#    blocking_move_on_middle_column = Board.new([nil, PlayerSymbols::O, nil, PlayerSymbols::X,nil, nil, nil, PlayerSymbols::O, nil])
-#
-#    move = ai_player.choose_move(board) 
-#    expect(move).to eq(4)
-#  end
-#
-#  it "takes a blocking move on right column" do
-#    blocking_move_on_right_column = Board.new([nil, nil, PlayerSymbols::O, nil, nil, PlayerSymbols::O, nil, PlayerSymbols::X, nil])
-#
-#    move = ai_player.choose_move(board) 
-#    expect(move).to eq(8)
-#  end
-#
-#  it "takes a blocking move on first diagonal" do
-#    blocking_move_on_first_diagonal = Board.new([PlayerSymbols::O, PlayerSymbols::X, nil, nil,nil, nil, nil, nil, PlayerSymbols::O])
-#
-#    move = ai_player.choose_move(blocking_move_on_first_diagonal) 
-#    expect(move).to eq(4)
-#  end
-#
-#  it "takes a blocking move on second diagonal" do
-#    blocking_move_on_second_diagonal = Board.new([nil, nil, PlayerSymbols::O, nil, nil, nil, PlayerSymbols::O, PlayerSymbols::X, nil])
-#
-#    move = ai_player.choose_move(blocking_move_on_second_diagonal) 
-#    expect(move).to eq(4)
-#  end
+  it "takes a blocking move on bottom row" do
+    blocking_move_on_bottom_row = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil, nil, PlayerSymbols::X, nil, PlayerSymbols::O, PlayerSymbols::O])
+
+    move = ai_player.choose_move(blocking_move_on_bottom_row) 
+    expect(move).to eq(6)
+  end
+
+  it "takes a blocking move on left column" do
+    blocking_move_on_left_column = Board.new([PlayerSymbols::O, nil, nil, nil, nil, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil])
+
+    move = ai_player.choose_move(blocking_move_on_left_column) 
+    expect(move).to eq(3)
+  end
+
+  it "takes a blocking move on middle column" do
+    blocking_move_on_middle_column = Board.new([nil, PlayerSymbols::O, nil, PlayerSymbols::X,nil, nil, nil, PlayerSymbols::O, nil])
+
+    move = ai_player.choose_move(blocking_move_on_middle_column) 
+    expect(move).to eq(4)
+  end
+
+  it "takes a blocking move on right column" do
+    blocking_move_on_right_column = Board.new([nil, nil, PlayerSymbols::O, nil, nil, PlayerSymbols::O, nil, PlayerSymbols::X, nil])
+
+    move = ai_player.choose_move(blocking_move_on_right_column) 
+    expect(move).to eq(8)
+  end
+
+ it "takes a blocking move on first diagonal" do
+    blocking_move_on_first_diagonal = Board.new([PlayerSymbols::O, PlayerSymbols::X, nil, nil,nil, nil, nil, nil, PlayerSymbols::O])
+
+    move = ai_player.choose_move(blocking_move_on_first_diagonal) 
+    expect(move).to eq(4)
+  end
+
+ it "takes a blocking move on second diagonal" do
+    blocking_move_on_second_diagonal = Board.new([nil, nil, PlayerSymbols::O, nil, nil, nil, PlayerSymbols::O, PlayerSymbols::X, nil])
+
+    move = ai_player.choose_move(blocking_move_on_second_diagonal) 
+    expect(move).to eq(4)
+  end
 end
