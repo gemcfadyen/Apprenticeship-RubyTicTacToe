@@ -90,19 +90,19 @@ RSpec.describe AiPlayer do
   end
 
   it "takes a blocking move on middle row" do
-    blocking_move_on_middle_row = Board.new([PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, nil, PlayerSymbols::O, nil, nil, nil, nil])
+    blocking_move_on_middle_row = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil, PlayerSymbols::O, nil, nil, nil, nil])
 
     move = ai_player.choose_move(blocking_move_on_middle_row) 
-    expect(move).to eq(8)
+    expect(move).to eq(7)
   end
 
-  it "takes a blocking move on bottom row" do
-    blocking_move_on_bottom_row = Board.new([nil, nil, PlayerSymbols::X, nil, nil, PlayerSymbols::X, nil, PlayerSymbols::O, PlayerSymbols::O])
-
-    move = ai_player.choose_move(blocking_move_on_bottom_row) 
-    expect(move).to eq(6)
-  end
-
+#  it "takes a blocking move on bottom row" do
+#    blocking_move_on_bottom_row = Board.new([nil, nil, PlayerSymbols::X, nil, nil, PlayerSymbols::X, nil, PlayerSymbols::O, PlayerSymbols::O])
+#
+#    move = ai_player.choose_move(blocking_move_on_bottom_row) 
+#    expect(move).to eq(6)
+#  end
+#
 #  it "takes a blocking move on left column" do
 #    blocking_move_on_left_column = Board.new([PlayerSymbols::O, nil, nil, nil, nil, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, nil])
 #
