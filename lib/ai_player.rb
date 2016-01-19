@@ -99,14 +99,6 @@ class ScoredMove
     move
   end
 
-  def set_move(move)
-    @move = move
-  end
-
-  def set_score(score)
-    @score = score 
-  end
-
   private
 
   attr_accessor :move
