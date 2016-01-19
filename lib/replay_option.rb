@@ -1,3 +1,3 @@
 class ReplayOption
-  Y = "Y" 
+  Y = "Y"
 end

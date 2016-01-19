@@ -13,10 +13,10 @@ RSpec.describe HumanPlayer do
 
     move = human.choose_move(Board.new)
 
-    expect(move).to be 1 
+    expect(move).to be 1
   end
 
-  it "has a player symbol" do 
+  it "has a player symbol" do
     expect(human.game_symbol).to be PlayerSymbols::X
   end
 end

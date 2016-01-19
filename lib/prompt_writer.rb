@@ -1,3 +1,6 @@
+require 'replay_option'
+require 'player_options'
+
 class PromptWriter
   def initialize(std_out)
     @std_out = std_out
@@ -11,7 +14,7 @@ class PromptWriter
     std_out.puts "The game has been won by #{symbol}!"
   end
 
-  def show_draw_message 
+  def show_draw_message
     std_out.puts "The game is a draw!"
   end
 
@@ -34,14 +37,14 @@ class PromptWriter
 
   private
 
-  attr_reader :std_out 
+  attr_reader :std_out
 
   def divider
-    " | " 
+    " | "
   end
 
   def format_board(board)
-    cell_number = 0 
+    cell_number = 0
     divided_rows = board.grid_for_display.map do |row|
       formatted_cells = row.map do |cell|
         cell_number += 1
@@ -53,7 +56,7 @@ class PromptWriter
   end
 
   def display_cell(cell, cell_number)
-    cell.nil? ? cell_number.to_s : cell.to_s 
+    cell.nil? ? cell_number.to_s : cell.to_s
   end
 
   def new_line

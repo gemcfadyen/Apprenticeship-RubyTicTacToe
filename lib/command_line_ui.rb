@@ -1,3 +1,7 @@
+require 'prompt_writer'
+require 'prompt_reader'
+require 'player_options'
+
 class CommandLineUI
 
   def initialize(writer, reader)
@@ -15,7 +19,7 @@ class CommandLineUI
   def replay?
     writer.replay
     replay_option = reader.get_input()
-    replay_option.upcase == ReplayOption::Y 
+    replay_option.upcase == ReplayOption::Y
   end
 
   def print_game_status(board)
@@ -40,11 +44,11 @@ class CommandLineUI
 
   def get_user_input_for_move
     writer.ask_for_next_move
-    value = reader.get_input  
+    value = reader.get_input
   end
 
   def get_user_input_for_player_options
-    writer.show_player_options 
+    writer.show_player_options
     value = reader.get_input
   end
 
@@ -56,17 +60,17 @@ class CommandLineUI
     PlayerOptions::get_player_type_for_id(value.to_i)
   end
 
-    def valid_player_option?(value) 
+    def valid_player_option?(value)
       PlayerOptions::valid_ids.include?(value.to_i)
     end
 
     def get_validated_move(value, board)
-      while !valid?(value, board) 
+      while !valid?(value, board)
         writer.show_board(board)
         writer.error_message
-        value = get_user_input_for_move   
+        value = get_user_input_for_move
       end
-      value.to_i    
+      value.to_i
     end
 
     def valid?(value, board)

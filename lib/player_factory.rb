@@ -1,5 +1,9 @@
-class PlayerFactory
+require 'player_symbols'
+require 'human_player'
+require 'player_options'
+require 'ai_player'
 
+class PlayerFactory
   def create_players(player_option, command_line_ui)
     if player_option == PlayerOptions::HUMAN_VS_HUMAN
       human_vs_human(command_line_ui)

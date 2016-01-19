@@ -1,7 +1,7 @@
+require 'game'
 require 'board'
 require 'human_player'
 require 'player_symbols'
-require 'game'
 
 RSpec.describe Game do
   let(:player_x_spy) { instance_double(HumanPlayer).as_null_object }

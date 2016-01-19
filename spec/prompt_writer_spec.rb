@@ -1,20 +1,18 @@
 require 'prompt_writer'
 require 'board'
 require 'player_symbols'
-require 'replay_option'
-require 'player_options'
 
 RSpec.describe PromptWriter do
   let(:std_out) { StringIO.new }
   let(:prompt) { PromptWriter.new(std_out) }
-  
+
   it "prompts for an input" do
     prompt.ask_for_next_move
     expect(std_out.string).to eq "Please enter your next move\n"
   end
 
   it "displays winning message for X" do
-    prompt.show_winning_message(PlayerSymbols::X) 
+    prompt.show_winning_message(PlayerSymbols::X)
     expect(std_out.string).to eq "The game has been won by X!\n"
   end
 

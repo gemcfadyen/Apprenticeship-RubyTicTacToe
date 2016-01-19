@@ -10,7 +10,7 @@ class PlayerOptions
   }
 
   def self.valid_ids
-    ID_TO_PLAYER_TYPE.keys 
+    ID_TO_PLAYER_TYPE.keys
   end
 
   def self.get_player_type_for_id(id)

@@ -13,7 +13,7 @@ RSpec.describe PlayerSymbols do
   it "finds opponent of X" do
     expect(PlayerSymbols::opponent(PlayerSymbols::X)).to be :O
   end
-  
+
   it "finds opponent of O" do
     expect(PlayerSymbols::opponent(PlayerSymbols::O)).to be :X
   end

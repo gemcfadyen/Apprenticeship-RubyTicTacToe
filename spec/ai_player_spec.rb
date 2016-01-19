@@ -1,5 +1,4 @@
 require 'ai_player'
-require 'player_symbols'
 require 'board'
 
 RSpec.describe AiPlayer do

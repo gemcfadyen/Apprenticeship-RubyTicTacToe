@@ -1,5 +1,4 @@
 require 'board_factory'
-require 'board'
 
 RSpec.describe BoardFactory do
   let(:board_factory) { BoardFactory.new }

@@ -7,8 +7,8 @@ class PromptReader
   def get_input()
     std_in.gets.chomp
   end
- 
-  private 
-  
+
+  private
+
   attr_reader :std_in
 end

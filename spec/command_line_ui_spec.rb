@@ -1,11 +1,6 @@
 require 'command_line_ui'
 require 'board'
 require 'player_symbols'
-require 'player_symbols'
-require 'prompt_reader'
-require 'prompt_writer'
-require 'replay_option'
-require 'player_options'
 
 RSpec.describe CommandLineUI do
   let (:reader_spy) { instance_double(PromptReader).as_null_object }

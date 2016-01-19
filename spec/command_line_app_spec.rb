@@ -1,13 +1,10 @@
 require 'command_line_app'
-require 'game'
 require 'command_line_ui'
 require 'board'
-require 'human_player'
 require 'command_line_ui'
 require 'player_symbols'
 require 'player_factory'
 require 'board_factory'
-require 'player_options'
 
 RSpec.describe CommandLineApp do
   let(:command_line_app) { CommandLineApp.new(command_line_ui_spy, board_factory_spy, player_factory_spy) }
@@ -30,7 +27,7 @@ RSpec.describe CommandLineApp do
   end
 
   it "creates board on start" do
-    allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
 
     command_line_app.start
@@ -39,9 +36,9 @@ RSpec.describe CommandLineApp do
   end
 
   it "asks for player types" do
-    allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
-    
+
     command_line_app.start
 
     expect(board_factory_spy).to have_received(:create_board)
@@ -51,7 +48,7 @@ RSpec.describe CommandLineApp do
   it "creates players on start" do
     allow(player_factory_spy).to receive(:create_players).and_return(["player1", "player2"])
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
-    allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
 
     command_line_app.start
 
@@ -59,7 +56,7 @@ RSpec.describe CommandLineApp do
   end
 
   it "asks user to replay" do
-    allow(board_factory_spy).to receive(:create_board).and_return(board_spy) 
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
 
     command_line_app.start
 
@@ -67,7 +64,7 @@ RSpec.describe CommandLineApp do
   end
 
   it "play another game when replay selected" do
-    allow(board_factory_spy).to receive(:create_board).and_return(board_spy).twice 
+    allow(board_factory_spy).to receive(:create_board).and_return(board_spy).twice
     allow(command_line_ui_spy).to receive(:replay?).and_return(true, false)
 
     command_line_app.start

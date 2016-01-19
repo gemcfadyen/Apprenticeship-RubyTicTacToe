@@ -1,4 +1,4 @@
-class HumanPlayer 
+class HumanPlayer
   def initialize(command_line_interface, symbol)
     @command_line_interface = command_line_interface
     @symbol = symbol
@@ -12,7 +12,7 @@ class HumanPlayer
     symbol
   end
 
-  private 
+  private
 
   attr_reader :command_line_interface, :symbol
 end

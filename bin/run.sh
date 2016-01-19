@@ -9,13 +9,6 @@ require 'board_factory'
 require 'player_factory'
 require 'prompt_writer'
 require 'prompt_reader'
-require 'game'
-require 'board'
-require 'player_symbols'
-require 'human_player'
-require 'ai_player'
-require 'replay_option'
-require 'player_options'
 
 writer = PromptWriter.new($stdout)
 reader = PromptReader.new($stdin)
