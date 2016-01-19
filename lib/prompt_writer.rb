@@ -27,7 +27,12 @@ class PromptWriter
   def error_message
     std_out.puts "Incorrect input received!"
   end
-  private
+
+ def show_player_options
+   std_out.puts "Choose player type: (1) #{PlayerOptions::HUMAN_VS_HUMAN}, (2) #{PlayerOptions::HUMAN_VS_AI}, (3) #{PlayerOptions::AI_VS_HUMAN}" 
+ end
+  
+ private
 
   attr_reader :std_out 
 

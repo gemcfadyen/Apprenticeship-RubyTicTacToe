@@ -2,6 +2,7 @@ require 'prompt_writer'
 require 'board'
 require 'player_symbols'
 require 'replay_option'
+require 'player_options'
 
 RSpec.describe PromptWriter do
   let(:std_out) { StringIO.new }
@@ -42,5 +43,11 @@ RSpec.describe PromptWriter do
   it "displays error message" do
     prompt.error_message
     expect(std_out.string).to eq("Incorrect input received!\n")
+  end
+
+  it "displays player options" do
+    prompt.show_player_options
+
+    expect(std_out.string).to eq("Choose player type: (1) Human vs Human, (2) Human vs Ai, (3) Ai vs Human\n")
   end
 end

@@ -5,6 +5,7 @@ require 'player_symbols'
 require 'prompt_reader'
 require 'prompt_writer'
 require 'replay_option'
+require 'player_options'
 
 RSpec.describe CommandLineUI do
   let (:reader_spy) { instance_double(PromptReader).as_null_object }
@@ -116,5 +117,36 @@ RSpec.describe CommandLineUI do
     command_line_ui.print_game_status(drawn_board)  
 
     expect(writer_spy).to have_received(:show_draw_message)
+  end
+
+  it "displays player types" do
+    allow(reader_spy).to receive(:get_input).and_return("1")
+    
+    command_line_ui.get_player_option
+
+    expect(writer_spy).to have_received(:show_player_options)
+  end
+
+  it "reads in player option" do
+    allow(reader_spy).to receive(:get_input).and_return("1")
+    
+    expect(command_line_ui.get_player_option).to be PlayerOptions::HUMAN_VS_HUMAN
+  end
+
+  it "reprompts when invalid player option entered" do
+    allow(reader_spy).to receive(:get_input).and_return("A", "1")
+   
+    command_line_ui.get_player_option
+
+    expect(writer_spy).to have_received(:error_message)
+  end
+
+ it "reprompts player option from user when number is not a valid player type" do
+    allow(reader_spy).to receive(:get_input).and_return("32", "1")
+
+    expect(command_line_ui.get_player_option).to be PlayerOptions::HUMAN_VS_HUMAN
+
+    expect(writer_spy).to have_received(:show_player_options).twice
+    expect(reader_spy).to have_received(:get_input).twice
   end
 end

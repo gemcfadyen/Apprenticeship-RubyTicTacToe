@@ -29,33 +29,55 @@ class CommandLineUI
     end
   end
 
+  def get_player_option
+    value = get_user_input_for_player_options
+    get_validated_player_option(value)
+  end
+
   private
 
   attr_reader :writer, :reader
 
   def get_user_input_for_move
     writer.ask_for_next_move
-    reader.get_input  
+    value = reader.get_input  
   end
 
-  def get_validated_move(value, board)
-    while !valid?(value, board) 
-      writer.show_board(board)
+  def get_user_input_for_player_options
+    writer.show_player_options 
+    value = reader.get_input
+  end
+
+  def get_validated_player_option(value)
+    while !valid_player_option?(value)
       writer.error_message
-      value = get_user_input_for_move   
+      value = get_user_input_for_player_options
     end
-    value.to_i    
+    PlayerOptions::get_player_type_for_id(value.to_i)
   end
 
-  def valid?(value, board)
-    one_indexed(board.vacant_indices).include?(value.to_i)
-  end
+    def valid_player_option?(value) 
+      PlayerOptions::valid_ids.include?(value.to_i)
+    end
 
-  def one_indexed(vacant_indices)
-    vacant_indices.collect { |i| i+1 }
-  end
+    def get_validated_move(value, board)
+      while !valid?(value, board) 
+        writer.show_board(board)
+        writer.error_message
+        value = get_user_input_for_move   
+      end
+      value.to_i    
+    end
 
-  def zero_indexed(value)
-    value - 1
+    def valid?(value, board)
+      one_indexed(board.vacant_indices).include?(value.to_i)
+    end
+
+    def one_indexed(vacant_indices)
+      vacant_indices.collect { |i| i + 1 }
+    end
+
+    def zero_indexed(value)
+      value - 1
+    end
   end
-end
