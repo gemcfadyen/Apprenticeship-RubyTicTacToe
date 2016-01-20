@@ -1,4 +1,4 @@
-require 'Game'
+require 'game'
 
 class CommandLineApp
 

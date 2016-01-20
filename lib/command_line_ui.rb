@@ -11,7 +11,7 @@ class CommandLineUI
 
   def get_move_from_player(board)
     writer.show_board(board)
-    value = get_user_input_for_move
+    value = read_users_move
 
     zero_indexed(get_validated_move(value, board))
   end
@@ -34,54 +34,64 @@ class CommandLineUI
   end
 
   def get_player_option
-    value = get_user_input_for_player_options
-    get_validated_player_option(value)
+    get_validated_player_option(read_player_option)
   end
 
   private
 
   attr_reader :writer, :reader
 
-  def get_user_input_for_move
+  def read_users_move
     writer.ask_for_next_move
-    value = reader.get_input
+    reader.get_input
   end
 
-  def get_user_input_for_player_options
+  def read_player_option
     writer.show_player_options
-    value = reader.get_input
+    reader.get_input
   end
 
   def get_validated_player_option(value)
     while !valid_player_option?(value)
       writer.error_message
-      value = get_user_input_for_player_options
+      value = read_player_option
     end
-    PlayerOptions::get_player_type_for_id(value.to_i)
+    PlayerOptions::get_player_type_for_id(to_number(value))
   end
 
-    def valid_player_option?(value)
-      PlayerOptions::valid_ids.include?(value.to_i)
-    end
-
-    def get_validated_move(value, board)
-      while !valid?(value, board)
-        writer.show_board(board)
-        writer.error_message
-        value = get_user_input_for_move
-      end
-      value.to_i
-    end
-
-    def valid?(value, board)
-      one_indexed(board.vacant_indices).include?(value.to_i)
-    end
-
-    def one_indexed(vacant_indices)
-      vacant_indices.collect { |i| i + 1 }
-    end
-
-    def zero_indexed(value)
-      value - 1
-    end
+  def valid_player_option?(value)
+    numeric?(value) ?  PlayerOptions::valid_ids.include?(to_number(value)) : false
   end
+
+  def get_validated_move(value, board)
+    while !valid?(value, board)
+      writer.show_board(board)
+      writer.error_message
+      value = read_users_move
+    end
+    to_number(value)
+  end
+
+  def valid?(value, board)
+    numeric?(value) ? one_indexed(board.vacant_indices).include?(to_number(value)) : false
+  end
+
+  def numeric?(input)
+    to_number(input)
+    true
+  rescue ArgumentError
+    false
+  end
+
+  def to_number(value)
+    Integer(value)
+  end
+
+  def one_indexed(vacant_indices)
+    vacant_indices.collect { |i| i + 1 }
+  end
+
+  def zero_indexed(value)
+    value - 1
+  end
+end

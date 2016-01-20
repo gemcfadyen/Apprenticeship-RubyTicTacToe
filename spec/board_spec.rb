@@ -111,7 +111,7 @@ RSpec.describe Board do
   end
 
   it "has no winning symbol" do
-    expect(board.winning_symbol).to be nil 
+    expect(board.winning_symbol).to be nil
   end
 
   it "gives all vacant indices on an empty board" do
