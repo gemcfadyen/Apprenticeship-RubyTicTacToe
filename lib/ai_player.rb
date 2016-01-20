@@ -9,10 +9,10 @@ class AiPlayer
   end
 
   def choose_move(board)
-    minimax(board, true, board.vacant_indices.size).first[1]
+    minimax(board, true, board.vacant_indices.size, ALPHA, BETA).first[1]
   end
 
-  def minimax(board, is_max_player, depth)
+  def minimax(board, is_max_player, depth, alpha, beta)
     best_score_so_far = initial_score(is_max_player)
 
     if round_is_over(board, depth)
@@ -21,29 +21,56 @@ class AiPlayer
 
     board.vacant_indices.each do |i|
       new_board = board.make_move(i, current_players_symbol(is_max_player))
-      result = minimax(new_board, !is_max_player, depth - 1)
+      result = minimax(new_board, !is_max_player, depth - 1, alpha, beta)
       best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.first[0])
+
+      alpha = update_alpha(is_max_player, best_score_so_far, alpha)
+      beta = update_beta(is_max_player, best_score_so_far, beta)
+
+      if alpha > beta
+        break
+      end
     end
+
     best_score_so_far
   end
 
+
   private
+  ALPHA = -2
+  BETA = 2
+
+  def update_alpha(is_max_player, best_score_so_far, alpha)
+    if is_max_player && best_score_so_far.first.first > alpha
+      alpha = best_score_so_far.first.first
+    end
+    alpha
+  end
+
+  def update_beta(is_max_player, best_score_so_far, beta)
+    if !is_max_player && best_score_so_far.first.first < beta
+      beta = best_score_so_far.first.first
+    end
+    beta
+  end
 
   def round_is_over(board, depth)
-    board.winning_combination? || depth == 0
+    @winner = board.winning_symbol
+    !@winner.nil? || depth == 0
   end
 
   def score(board, depth)
-    winning_symbol = board.winning_symbol
-    if maximizing_player_won?(winning_symbol)
+    if @winner.nil?
+      return {0 => nil}
+    end
+
+    if maximizing_player_won?(@winner)
       return {(1 + depth) => nil}
     end
 
-    if minimizing_player_won?(winning_symbol)
+    if minimizing_player_won?(@winner)
       return {(-1 - depth) => nil}
     end
-
-    return {0 => nil}
   end
 
   def maximizing_player_won?(winners_symbol)
@@ -60,9 +87,9 @@ class AiPlayer
 
   def initial_score(is_max_player)
     if is_max_player
-      best_score_so_far = {-2 => nil}
+      best_score_so_far = {ALPHA => nil}
     else
-      best_score_so_far = {2 => nil}
+      best_score_so_far = {BETA => nil}
     end
   end
 

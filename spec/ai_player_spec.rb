@@ -10,19 +10,19 @@ RSpec.describe AiPlayer do
 
   it "scores zero when a draw is made" do
     draw_board = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X])
-    expect(ai_player.minimax(draw_board, true, draw_board.vacant_indices.size).first.first).to be (0 + draw_board.vacant_indices.size)
+    expect(ai_player.minimax(draw_board, true, draw_board.vacant_indices.size, -2, 2).first.first).to be (0 + draw_board.vacant_indices.size)
   end
 
   it "scores one if computer wins" do
     winning_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::X, nil, nil, PlayerSymbols::O, PlayerSymbols::O, nil, nil])
 
-    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size).first.first).to be(1 + winning_board.vacant_indices.size)
+    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size, -2, 2).first.first).to be(1 + winning_board.vacant_indices.size)
   end
 
   it "scores negative one if opponent wins" do
     winning_board = Board.new([PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, nil, nil, PlayerSymbols::X, PlayerSymbols::X, nil, nil])
 
-    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size).first.first).to be(-1 - winning_board.vacant_indices.size)
+    expect(ai_player.minimax(winning_board, true, winning_board.vacant_indices.size, -2, 2).first.first).to be(-1 - winning_board.vacant_indices.size)
   end
 
   it "takes a winning move on top row" do
