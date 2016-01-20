@@ -9,7 +9,7 @@ class AiPlayer
   end
 
   def choose_move(board)
-    minimax(board, true, board.vacant_indices.size).get_move
+    minimax(board, true, board.vacant_indices.size).first[1]
   end
 
   def minimax(board, is_max_player, depth)
@@ -20,12 +20,10 @@ class AiPlayer
     end
 
     board.vacant_indices.each do |i|
-
       new_board = board.make_move(i, current_players_symbol(is_max_player))
       result = minimax(new_board, !is_max_player, depth - 1)
-      best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.get_score)
+      best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.first[0])
     end
-
     best_score_so_far
   end
 
@@ -38,14 +36,14 @@ class AiPlayer
   def score(board, depth)
     winning_symbol = board.winning_symbol
     if maximizing_player_won?(winning_symbol)
-      return MaximisingPlayerWin.new(depth)
+      return {(1 + depth) => nil}
     end
 
     if minimizing_player_won?(winning_symbol)
-      return MinimisingPlayerWin.new(depth)
+      return {(-1 - depth) => nil}
     end
 
-    return DrawScoredMove.new
+    return {0 => nil}
   end
 
   def maximizing_player_won?(winners_symbol)
@@ -62,9 +60,9 @@ class AiPlayer
 
   def initial_score(is_max_player)
     if is_max_player
-      best_score_so_far = MaximisingPlayerInitialScore.new
+      best_score_so_far = {-2 => nil}
     else
-      best_score_so_far = MinimisingPlayerInitialScore.new
+      best_score_so_far = {2 => nil}
     end
   end
 
@@ -73,63 +71,11 @@ class AiPlayer
   end
 
   def update_score(is_max_player, move, best_score_so_far, result_score)
-    if is_max_player && (result_score >= best_score_so_far.get_score)
-      return ScoredMove.new(move, result_score)
-    elsif !is_max_player && (result_score < best_score_so_far.get_score)
-      return ScoredMove.new(move, result_score)
+    if is_max_player && (result_score >= best_score_so_far.first[0])
+      return {result_score => move}
+    elsif !is_max_player && (result_score < best_score_so_far.first[0])
+      return {result_score => move}
     end
     return best_score_so_far
-  end
-end
-
-class ScoredMove
-
-  def initialize(move = nil, score)
-    @move = move
-    @score = score
-  end
-
-  def get_score
-    score
-  end
-
-  def get_move
-    move
-  end
-
-  private
-
-  attr_accessor :move
-  attr_accessor :score
-end
-
-class MaximisingPlayerInitialScore < ScoredMove
-
-  def initialize(move = nil, score = -2)
-    super(move, score)
-  end
-end
-
-class MinimisingPlayerInitialScore < ScoredMove
-  def initialize(move = nil, score = 2)
-    super(move, score)
-  end
-end
-
-class DrawScoredMove < ScoredMove
-  def initialize(move = nil, score = 0)
-    super(move, score)
-  end
-end
-
-class MaximisingPlayerWin < ScoredMove
-  def initialize(move = nil, score)
-    super(move, 1 + score)
-  end
-end
-
-class MinimisingPlayerWin < ScoredMove
-  def initialize(move = nil, score)
-    super(move, -1 - score)
   end
 end
