@@ -1,13 +1,11 @@
 require 'player_symbols'
+require 'player'
 
 class AiPlayer
+  include Player
 
   def initialize(symbol)
-    @symbol = symbol
-  end
-
-  def game_symbol
-    symbol
+    super(symbol)
   end
 
   def choose_move(board)
@@ -32,8 +30,6 @@ class AiPlayer
   end
 
   private
-
-  attr_reader :symbol
 
   def round_is_over(board, depth)
     board.winning_combination? || depth == 0
