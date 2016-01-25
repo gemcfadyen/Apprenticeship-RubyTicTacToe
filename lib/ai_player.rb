@@ -22,7 +22,7 @@ class AiPlayer
     board.vacant_indices.each do |i|
       new_board = board.make_move(i, current_players_symbol(is_max_player))
       result = minimax(new_board, !is_max_player, depth - 1, alpha, beta)
-      best_score_so_far = update_score(is_max_player, i, best_score_so_far, result.first[0])
+      best_score_so_far = update_score(is_max_player, i, best_score_so_far, score_from(result))
 
       alpha = update_alpha(is_max_player, best_score_so_far, alpha)
       beta = update_beta(is_max_player, best_score_so_far, beta)
@@ -37,19 +37,24 @@ class AiPlayer
 
 
   private
+
   ALPHA = -2
   BETA = 2
 
   def update_alpha(is_max_player, best_score_so_far, alpha)
-    if is_max_player && best_score_so_far.first.first > alpha
-      alpha = best_score_so_far.first.first
+    if is_max_player && score_from(best_score_so_far) > alpha
+      alpha = score_from(best_score_so_far)
     end
     alpha
   end
 
+  def score_from(score)
+    score.first.first
+  end
+
   def update_beta(is_max_player, best_score_so_far, beta)
-    if !is_max_player && best_score_so_far.first.first < beta
-      beta = best_score_so_far.first.first
+    if !is_max_player && score_from(best_score_so_far) < beta
+        beta = score_from(best_score_so_far)
     end
     beta
   end
@@ -97,12 +102,12 @@ class AiPlayer
     is_max_player == true ? game_symbol : PlayerSymbols::opponent(game_symbol)
   end
 
-  def update_score(is_max_player, move, best_score_so_far, result_score)
-    if is_max_player && (result_score >= best_score_so_far.first[0])
+  def update_score(is_max_player, move, score, result_score)
+    if is_max_player && (result_score >= score_from(score))
       return {result_score => move}
-    elsif !is_max_player && (result_score < best_score_so_far.first[0])
+    elsif !is_max_player && (result_score < score_from(score))
       return {result_score => move}
     end
-    return best_score_so_far
+    return score
   end
 end
