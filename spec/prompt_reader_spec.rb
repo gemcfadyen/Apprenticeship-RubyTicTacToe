@@ -7,7 +7,7 @@ RSpec.describe PromptReader do
     reader = PromptReader.new(std_in)
 
     value = reader.get_input()
-    
+
     expect(value).to eq "1"
   end
 end

@@ -1,5 +1,5 @@
 class PlayerSymbols
-  X = :X 
+  X = :X
   O = :O
 
   def self.opponent(symbol)

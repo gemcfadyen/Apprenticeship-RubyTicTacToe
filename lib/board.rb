@@ -14,7 +14,7 @@ class Board
     Board.new(copy_of_grid)
   end
 
-  def free_spaces? 
+  def free_spaces?
     grid.include?(nil)
   end
 
@@ -28,7 +28,7 @@ class Board
 
   def winning_symbol
     winning_row = find_winning_row_from(all_rows)
-    winning_row.nil? ? nil : winning_row.first 
+    winning_row.nil? ? nil : winning_row.first
   end
 
   def vacant_indices
@@ -63,9 +63,9 @@ class Board
   end
 
   def rows
-    [ 
+    [
       [grid.at(0), grid.at(1), grid.at(2)],
-      [grid.at(3), grid.at(4), grid.at(5)], 
+      [grid.at(3), grid.at(4), grid.at(5)],
       [grid.at(6), grid.at(7), grid.at(8)]
     ]
   end
@@ -75,7 +75,7 @@ class Board
       [grid.at(0), grid.at(3), grid.at(6)],
       [grid.at(1), grid.at(4), grid.at(7)],
       [grid.at(2), grid.at(5), grid.at(8)]
-    ] 
+    ]
   end
 
   def diagonals

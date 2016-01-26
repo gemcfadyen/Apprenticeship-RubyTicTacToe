@@ -5,13 +5,13 @@ class Game
     @players = players
   end
 
-  def play 
+  def play
     while game_in_progress
       current_player = players.first
-      @board = board.make_move(current_player.choose_move(board), current_player.game_symbol)  
+      @board = board.make_move(current_player.choose_move(board), current_player.game_symbol)
       players.reverse!
     end
-    board 
+    board
   end
 
   private

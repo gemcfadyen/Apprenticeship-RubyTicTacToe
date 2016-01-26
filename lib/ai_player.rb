@@ -1,11 +1,11 @@
+require 'player_symbols'
+require 'player'
+
 class AiPlayer
+  include Player
 
   def initialize(symbol)
-    @symbol = symbol
-  end
-
-  def game_symbol
-    symbol
+    super(symbol)
   end
 
   def choose_move(board)
@@ -13,13 +13,13 @@ class AiPlayer
   end
 
   def minimax(board, is_max_player, depth)
-    best_score_so_far = initial_score(is_max_player)  
+    best_score_so_far = initial_score(is_max_player)
 
     if round_is_over(board, depth)
       return score(board, depth)
     end
 
-    board.vacant_indices.each do |i|  
+    board.vacant_indices.each do |i|
 
       new_board = board.make_move(i, current_players_symbol(is_max_player))
       result = minimax(new_board, !is_max_player, depth - 1)
@@ -31,19 +31,17 @@ class AiPlayer
 
   private
 
-  attr_reader :symbol
-
   def round_is_over(board, depth)
-    board.winning_combination? || depth == 0 
+    board.winning_combination? || depth == 0
   end
 
-  def score(board, depth) 
+  def score(board, depth)
     winning_symbol = board.winning_symbol
     if maximizing_player_won?(winning_symbol)
-      return MaximisingPlayerWin.new(depth) 
+      return MaximisingPlayerWin.new(depth)
     end
 
-    if minimizing_player_won?(winning_symbol) 
+    if minimizing_player_won?(winning_symbol)
       return MinimisingPlayerWin.new(depth)
     end
 
@@ -71,7 +69,7 @@ class AiPlayer
   end
 
   def current_players_symbol(is_max_player)
-    is_max_player == true ? game_symbol : PlayerSymbols::opponent(game_symbol) 
+    is_max_player == true ? game_symbol : PlayerSymbols::opponent(game_symbol)
   end
 
   def update_score(is_max_player, move, best_score_so_far, result_score)

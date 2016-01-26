@@ -22,10 +22,10 @@ require 'coveralls'
 
 Coveralls.wear!
 SimpleCov.minimum_coverage 100
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
       Coveralls::SimpleCov::Formatter
-]
+])
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
