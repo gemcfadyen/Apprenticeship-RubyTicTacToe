@@ -56,11 +56,11 @@ class CommandLineUI
       writer.error_message
       value = read_player_option
     end
-    PlayerOptions::get_player_type_for_id(to_number(value))
+    PlayerOptions::get_player_type_for_id(Integer(value))
   end
 
   def valid_player_option?(value)
-    numeric?(value) ?  PlayerOptions::valid_ids.include?(to_number(value)) : false
+    numeric?(value) ?  PlayerOptions::valid_ids.include?(Integer(value)) : false
   end
 
   def get_validated_move(value, board)
@@ -69,22 +69,20 @@ class CommandLineUI
       writer.error_message
       value = read_users_move
     end
-    to_number(value)
+    Integer(value)
   end
 
   def valid?(value, board)
-    numeric?(value) ? one_indexed(board.vacant_indices).include?(to_number(value)) : false
+    numeric?(value) ? one_indexed(board.vacant_indices).include?(Integer(value)) : false
   end
 
   def numeric?(input)
-    to_number(input)
-    true
-  rescue ArgumentError
-    false
-  end
-
-  def to_number(value)
-    Integer(value)
+    begin
+      Integer(input)
+      true
+    rescue ArgumentError
+      false
+    end
   end
 
   def one_indexed(vacant_indices)
