@@ -9,11 +9,47 @@ class CommandLineUI
     @reader = reader
   end
 
-  def get_move_from_player(board)
-    writer.show_board(board)
-    value = read_users_move
+  #template method
+  def validated_input
+    yield
+    value = reader.get_input
 
-    zero_indexed(get_validated_move(value, board))
+    #    while !some_validation_stuff
+    #      display_to_prompt_some_stuff
+    #      value = get_input
+    #    end
+    #    transform_valid_input
+  end
+
+  def get_move_from_player(board)
+    shows_board_and_prompts_for_move = lambda { 
+      writer.show_board(board)
+      writer.ask_for_next_move
+    }
+
+    value = validated_input(&shows_board_and_prompts_for_move)
+
+    while !valid?(value, board)
+      writer.show_board(board)
+      writer.error_message
+      value = read_users_move
+    end
+    zero_indexed(Integer(value))
+  end
+
+  def get_player_option
+    prompts_for_player_option = lambda {
+      writer.show_player_options
+    }
+
+    value = validated_input(&prompts_for_player_option)
+
+    #value = read_player_option
+    while !valid_player_option?(value)
+      writer.error_message
+      value = read_player_option
+    end
+    PlayerOptions::get_player_type_for_id(Integer(value))
   end
 
   def replay?
@@ -32,11 +68,6 @@ class CommandLineUI
       return writer.show_draw_message
     end
   end
-
-  def get_player_option
-    get_validated_player_option(read_player_option)
-  end
-
   private
 
   attr_reader :writer, :reader
