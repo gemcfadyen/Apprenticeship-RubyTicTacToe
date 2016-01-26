@@ -27,8 +27,8 @@ class Board
   end
 
   def winning_symbol
-    winning_row = find_winning_row_from(all_rows)
-    winning_row.nil? ? nil : winning_row.first
+    @winning_row = find_winning_row_from(all_rows)
+    @winning_row.nil? ? nil : @winning_row.first
   end
 
   def vacant_indices
@@ -44,10 +44,10 @@ class Board
   attr_reader :grid
 
   def find_winning_row_from(rows)
-    rows.find do |row|
-       all_cells_match = row.all? {|cell| cell == row.first}
-       all_cells_match && not_nil_symbol(row.first)
-    end
+    @all_rows ||= rows.find do |row|
+           all_cells_match = row.all? {|cell| cell == row.first}
+           all_cells_match && not_nil_symbol(row.first)
+        end
   end
 
   def not_nil_row(row)
@@ -55,7 +55,7 @@ class Board
   end
 
   def all_rows
-    rows + columns + diagonals
+    @all ||= rows + columns + diagonals
   end
 
   def not_nil_symbol(cell)
