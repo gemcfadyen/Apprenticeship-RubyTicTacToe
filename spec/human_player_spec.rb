@@ -13,7 +13,7 @@ RSpec.describe HumanPlayer do
   end
 
   it "has ready state" do
-    expect(human.is_ready).to be true
+    expect(human.is_ready?).to be true
   end
 
   it "chooses a move on the board" do

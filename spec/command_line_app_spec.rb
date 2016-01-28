@@ -29,6 +29,7 @@ RSpec.describe CommandLineApp do
   it "creates board on start" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
+    allow(player_factory_spy).to receive(:create_players).and_return(two_fake_players)
 
     command_line_app.start
 
@@ -37,6 +38,7 @@ RSpec.describe CommandLineApp do
 
   it "asks for player types" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
+    allow(player_factory_spy).to receive(:create_players).and_return(two_fake_players)
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
 
     command_line_app.start
@@ -46,7 +48,7 @@ RSpec.describe CommandLineApp do
   end
 
   it "creates players on start" do
-    allow(player_factory_spy).to receive(:create_players).and_return(["player1", "player2"])
+    allow(player_factory_spy).to receive(:create_players).and_return(two_fake_players)
     allow(command_line_ui_spy).to receive(:replay?).and_return(false)
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
 
@@ -57,6 +59,7 @@ RSpec.describe CommandLineApp do
 
   it "asks user to replay" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy)
+    allow(player_factory_spy).to receive(:create_players).and_return(two_fake_players)
 
     command_line_app.start
 
@@ -65,11 +68,22 @@ RSpec.describe CommandLineApp do
 
   it "play another game when replay selected" do
     allow(board_factory_spy).to receive(:create_board).and_return(board_spy).twice
+    allow(player_factory_spy).to receive(:create_players).and_return(two_fake_players)
     allow(command_line_ui_spy).to receive(:replay?).and_return(true, false)
 
     command_line_app.start
 
     expect(command_line_ui_spy).to have_received(:replay?).twice
     expect(command_line_ui_spy).to have_received(:print_game_status).twice
+  end
+
+  def two_fake_players
+    fake_player_x = instance_double(HumanPlayer).as_null_object
+    allow(fake_player_x).to receive(:is_ready?).and_return(true)
+
+    fake_player_o = instance_double(HumanPlayer).as_null_object
+    allow(fake_player_o).to receive(:is_ready?).and_return(true)
+
+    [fake_player_x, fake_player_o]
   end
 end

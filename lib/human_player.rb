@@ -12,7 +12,7 @@ class HumanPlayer
     command_line_interface.get_move_from_player(board)
   end
 
-  def is_ready
+  def is_ready?
     true
   end
 

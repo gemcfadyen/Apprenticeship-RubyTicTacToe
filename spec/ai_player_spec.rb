@@ -9,7 +9,7 @@ RSpec.describe AiPlayer do
   end
 
   it "has ready state" do
-    expect(ai_player.is_ready).to be true
+    expect(ai_player.is_ready?).to be true
   end
 
   it "scores zero when a draw is made" do

@@ -12,7 +12,7 @@ class AiPlayer
     minimax(board, true, board.vacant_indices.size, ALPHA, BETA).first[1]
   end
 
-  def is_ready
+  def is_ready?
     true
   end
 
