@@ -8,6 +8,10 @@ RSpec.describe AiPlayer do
     expect(ai_player.game_symbol).to eq(PlayerSymbols::X)
   end
 
+  it "has ready state" do
+    expect(ai_player.is_ready).to be true
+  end
+
   it "scores zero when a draw is made" do
     draw_board = Board.new([PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X])
     expect(ai_player.minimax(draw_board, true, draw_board.vacant_indices.size, -2, 2).first.first).to be (0 + draw_board.vacant_indices.size)

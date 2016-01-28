@@ -12,6 +12,10 @@ class AiPlayer
     minimax(board, true, board.vacant_indices.size, ALPHA, BETA).first[1]
   end
 
+  def is_ready
+    true
+  end
+
   def minimax(board, is_max_player, depth, alpha, beta)
     best_score_so_far = initial_score(is_max_player)
 
