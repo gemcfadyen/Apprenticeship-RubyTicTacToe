@@ -79,10 +79,10 @@ RSpec.describe CommandLineApp do
 
   def two_fake_players
     fake_player_x = instance_double(HumanPlayer).as_null_object
-    allow(fake_player_x).to receive(:is_ready?).and_return(true)
+    allow(fake_player_x).to receive(:ready?).and_return(true)
 
     fake_player_o = instance_double(HumanPlayer).as_null_object
-    allow(fake_player_o).to receive(:is_ready?).and_return(true)
+    allow(fake_player_o).to receive(:ready?).and_return(true)
 
     [fake_player_x, fake_player_o]
   end

@@ -8,8 +8,8 @@ RSpec.describe Game do
   let(:player_o_spy) { instance_double(HumanPlayer).as_null_object }
 
   it "continues until player is not ready" do
-    allow(player_x_spy).to receive(:is_ready?).and_return(true, false)
-    allow(player_o_spy).to receive(:is_ready?).and_return(true)
+    allow(player_x_spy).to receive(:ready?).and_return(true, false)
+    allow(player_o_spy).to receive(:ready?).and_return(true)
 
     expect(player_x_spy).to receive(:choose_move).exactly(1).times.and_return(2)
     expect(player_o_spy).to receive(:choose_move).exactly(1).times.and_return(8)

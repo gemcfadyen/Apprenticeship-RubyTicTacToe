@@ -1,6 +1,3 @@
-require 'pry'
-require 'pry-byebug'
-
 class Game
 
   def initialize(board, players)
@@ -9,7 +6,7 @@ class Game
   end
 
   def play
-    while game_in_progress?(current_player)
+    while game_in_progress?
       @board = board.make_move(current_player.choose_move(board), current_player.game_symbol)
       players.reverse!
     end
@@ -20,8 +17,8 @@ class Game
 
   attr_reader :board, :players
 
-  def game_in_progress?(player)
-    player.is_ready? && board.free_spaces? && !board.winning_combination?
+  def game_in_progress?
+    current_player.ready? && board.free_spaces? && !board.winning_combination?
   end
 
   def current_player
