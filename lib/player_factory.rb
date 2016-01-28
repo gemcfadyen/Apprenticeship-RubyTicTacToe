@@ -1,5 +1,4 @@
 require 'player_symbols'
-require 'human_player'
 require 'player_options'
 require 'ai_player'
 
@@ -18,14 +17,14 @@ class PlayerFactory
 
   def human_vs_human(command_line_ui)
     [
-      HumanPlayer.new(command_line_ui, PlayerSymbols::X),
-      HumanPlayer.new(command_line_ui, PlayerSymbols::O)
+      create_human(command_line_ui, PlayerSymbols::X),
+      create_human(command_line_ui, PlayerSymbols::O)
     ]
   end
 
   def human_vs_ai(command_line_ui)
     [
-      HumanPlayer.new(command_line_ui, PlayerSymbols::X),
+      create_human(command_line_ui, PlayerSymbols::X),
       AiPlayer.new(PlayerSymbols::O)
     ]
   end
@@ -33,7 +32,11 @@ class PlayerFactory
   def ai_vs_human(command_line_ui)
     [
       AiPlayer.new(PlayerSymbols::X),
-      HumanPlayer.new(command_line_ui, PlayerSymbols::O)
+      create_human(command_line_ui, PlayerSymbols::O)
     ]
+  end
+
+  def create_human(command_line_ui, symbol)
+    raise NotImplementedError, "This #{self.class} cannot respond to:"
   end
 end
