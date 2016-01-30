@@ -1,8 +1,8 @@
-require 'player_factory'
+require 'command_line_player_factory'
 require 'command_line_ui'
 
-RSpec.describe PlayerFactory do
-  let(:player_factory) { PlayerFactory.new }
+RSpec.describe CommandLinePlayerFactory do
+  let(:player_factory) { CommandLinePlayerFactory.new }
   let(:command_line_ui_spy) { instance_double(CommandLineUI) }
 
   it "creates two human players" do
