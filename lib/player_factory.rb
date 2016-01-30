@@ -35,4 +35,8 @@ class PlayerFactory
       create_human(command_line_ui, PlayerSymbols::O)
     ]
   end
+
+  def create_human(command_line_ui, symbol)
+    raise NotImplementedError, "This #{self.class} cannot respond to:"
+  end
 end
