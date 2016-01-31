@@ -19,7 +19,7 @@ RSpec.describe PlayerSymbols do
   end
 
   it "all player symbols as strings" do
-    expect(PlayerSymbols::all).to eq [:X.to_s, :O.to_s]
+    expect(PlayerSymbols::all).to eq ["X", "O"]
   end
 
   it "converts X to player symbol" do
