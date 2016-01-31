@@ -7,7 +7,7 @@ class PlayerSymbols
   end
 
   def self.all
-    [X, O]
+    [X.to_s, O.to_s]
   end
 
   def self.to_symbol(value)

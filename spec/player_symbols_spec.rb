@@ -18,8 +18,8 @@ RSpec.describe PlayerSymbols do
     expect(PlayerSymbols::opponent(PlayerSymbols::O)).to be :X
   end
 
-  it "all player symbols" do
-    expect(PlayerSymbols::all).to eq [:X, :O]
+  it "all player symbols as strings" do
+    expect(PlayerSymbols::all).to eq ["X", "O"]
   end
 
   it "converts X to player symbol" do
