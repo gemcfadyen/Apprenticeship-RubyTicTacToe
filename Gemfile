@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
-gem 'pry'
-gem 'pry-byebug'
 
 group :test do
-    gem 'rake'
-    gem 'simplecov'
-    gem 'coveralls', :require => false
-    gem 'rspec', :require => 'spec'
+  gem 'rake', '10.5.0'
+    gem 'simplecov', '0.11.1'
+    gem 'coveralls', '0.8.10', :require => false
+    gem 'rspec', '3.4.0', :require => 'spec'
 end
