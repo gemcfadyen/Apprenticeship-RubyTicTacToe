@@ -1,11 +1,11 @@
-require 'game'
 require 'board'
-require 'human_player'
+require 'game'
+require 'player'
 require 'player_symbols'
 
 RSpec.describe Game do
-  let(:player_x_spy) { instance_double(HumanPlayer).as_null_object }
-  let(:player_o_spy) { instance_double(HumanPlayer).as_null_object }
+  let(:player_x_spy) { instance_double(FakePlayer).as_null_object }
+  let(:player_o_spy) { instance_double(FakePlayer).as_null_object }
 
   it "continues until player is not ready" do
     allow(player_x_spy).to receive(:ready?).and_return(true, false)
@@ -44,3 +44,15 @@ RSpec.describe Game do
     expect(player_x_spy).to_not have_received(:choose_move)
   end
 end
+
+class FakePlayer
+
+  include Player
+
+  def choose_move(board)
+  end
+
+  def ready?
+  end
+end
+
