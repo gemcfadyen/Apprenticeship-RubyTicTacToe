@@ -24,6 +24,10 @@ class PlayerOptions
     player_options_for_display.join(comma + space)
   end
 
+  def self.all
+    ID_TO_PLAYER_TYPE
+  end
+
   private
 
   def self.open_bracket
