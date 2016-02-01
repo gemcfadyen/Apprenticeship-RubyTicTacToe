@@ -10,10 +10,11 @@ class CommandLineUI
   end
 
   def get_move_from_player(board)
-    writer.show_board(board)
-    value = read_users_move
-
-    zero_indexed(get_validated_move(value, board))
+    validated_input(
+      prompt_player_for_next_move_on(board),
+      validation_conditions_for_move_on(board),
+      reprompt_player_for_next_move_on(board),
+      format_move)
   end
 
   def replay?
@@ -34,46 +35,78 @@ class CommandLineUI
   end
 
   def get_player_option
-    get_validated_player_option(read_player_option)
+    validated_input(
+      prompt_for_player_options,
+      validation_conditions_for_player_options,
+      reprompt_for_player_options,
+      format_player_option)
   end
 
   private
 
   attr_reader :writer, :reader
 
-  def read_users_move
-    writer.ask_for_next_move
-    reader.get_input
-  end
+  def validated_input(prompt_user, valid, reprompt, format)
+    prompt_user.call
+    input = reader.get_input
 
-  def read_player_option
-    writer.show_player_options
-    reader.get_input
-  end
-
-  def get_validated_player_option(value)
-    while !valid_player_option?(value)
-      writer.error_message
-      value = read_player_option
+    while(!valid.call(input))
+      reprompt.call
+      input = reader.get_input
     end
-    PlayerOptions::get_player_type_for_id(Integer(value))
+    format.call(input)
   end
 
-  def valid_player_option?(value)
-    numeric?(value) ?  PlayerOptions::valid_ids.include?(Integer(value)) : false
+  def prompt_player_for_next_move_on(board)
+    Proc.new do
+      writer.show_board(board)
+      writer.ask_for_next_move
+    end
   end
 
-  def get_validated_move(value, board)
-    while !valid?(value, board)
+  def validation_conditions_for_move_on(board)
+    Proc.new do |input|
+      numeric?(input) ? one_indexed(board.vacant_indices).include?(Integer(input)) : false
+    end
+  end
+
+  def reprompt_player_for_next_move_on(board)
+    Proc.new do
       writer.show_board(board)
       writer.error_message
-      value = read_users_move
+      writer.ask_for_next_move
     end
-    Integer(value)
   end
 
-  def valid?(value, board)
-    numeric?(value) ? one_indexed(board.vacant_indices).include?(Integer(value)) : false
+  def format_move
+    Proc.new do |input|
+      zero_indexed(Integer(input))
+    end
+  end
+
+  def prompt_for_player_options
+    Proc.new do
+      writer.show_player_options
+    end
+  end
+
+  def validation_conditions_for_player_options
+    Proc.new do |input|
+      numeric?(input) ?  PlayerOptions::valid_ids.include?(Integer(input)) : false
+    end
+  end
+
+  def reprompt_for_player_options
+    Proc.new do
+      writer.error_message
+      writer.show_player_options
+    end
+  end
+
+  def format_player_option
+    Proc.new do |input|
+      PlayerOptions::get_player_type_for_id(Integer(input))
+    end
   end
 
   def numeric?(input)
