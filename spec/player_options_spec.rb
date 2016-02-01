@@ -23,6 +23,6 @@ RSpec.describe PlayerOptions do
   end
 
   it "gets player options for display" do
- expect(PlayerOptions::display_player_options).to eq("(1) #{PlayerOptions::HUMAN_VS_HUMAN}, (2) #{PlayerOptions::HUMAN_VS_AI}, (3) #{PlayerOptions::AI_VS_HUMAN}" )
+ expect(PlayerOptions::display_player_options).to eq("(1) Human vs Human, (2) Human vs Ai, (3) Ai vs Human" )
   end
 end
