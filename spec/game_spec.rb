@@ -32,7 +32,7 @@ RSpec.describe Game do
     board = Board.new([PlayerSymbols::X, PlayerSymbols::X, nil, PlayerSymbols::O, nil, nil, nil, nil, nil])
     updated_board = Game.new(board, [player_x_spy, player_o_spy]).play
 
-    expect(updated_board.get_symbol_at(2)).to be (PlayerSymbols::X)
+    expect(updated_board.symbol_at(2)).to be (PlayerSymbols::X)
     expect(player_o_spy).to_not have_received(:choose_move)
   end
 

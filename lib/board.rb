@@ -18,7 +18,7 @@ class Board
     grid.include?(nil)
   end
 
-  def get_symbol_at(position)
+  def symbol_at(position)
     grid.at(position)
   end
 

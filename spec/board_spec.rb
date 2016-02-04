@@ -23,12 +23,12 @@ RSpec.describe Board do
 
   it "can get symbol at given position" do
     board = Board.new([nil, nil, nil, nil, X, O, nil, nil, nil])
-    expect(board.get_symbol_at(4)).to be :X
+    expect(board.symbol_at(4)).to be :X
   end
 
   it "can be updated at a given position" do
     updated_board = board.make_move(1, X)
-    expect(updated_board.get_symbol_at(1)).to eq(X)
+    expect(updated_board.symbol_at(1)).to eq(X)
   end
 
   it "has free spaces" do
