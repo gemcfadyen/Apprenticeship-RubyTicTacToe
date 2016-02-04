@@ -2,10 +2,22 @@ require 'board'
 require 'game'
 require 'player'
 require 'player_symbols'
+require 'player_options'
 
 RSpec.describe Game do
   let(:player_x_spy) { instance_double(FakePlayer).as_null_object }
   let(:player_o_spy) { instance_double(FakePlayer).as_null_object }
+
+
+  it "game is played with specific move" do
+    allow(player_x_spy).to receive(:ready?).and_return(false)
+
+    game = Game.new(Board.new, [player_x_spy, player_o_spy])
+    updated_board = game.play_specific(3)
+
+    expect(updated_board.symbol_at(3)).to be (PlayerSymbols::X)
+  end
+
 
   it "continues until player is not ready" do
     allow(player_x_spy).to receive(:ready?).and_return(true, false)
