@@ -8,16 +8,27 @@ RSpec.describe Game do
   let(:player_x_spy) { instance_double(FakePlayer).as_null_object }
   let(:player_o_spy) { instance_double(FakePlayer).as_null_object }
 
-
   it "game is played with specific move" do
-    allow(player_x_spy).to receive(:ready?).and_return(false)
+    allow(player_o_spy).to receive(:ready?).and_return(false)
 
-    game = Game.new(Board.new, [player_x_spy, player_o_spy])
+    game = Game.new(Board.new, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy })
     updated_board = game.play_specific(3)
 
     expect(updated_board.symbol_at(3)).to be (PlayerSymbols::X)
   end
 
+  it "game is started with a specific move" do
+    allow(player_x_spy).to receive(:ready?).and_return(false)
+    allow(player_o_spy).to receive(:choose_move).and_return(8)
+    allow(player_o_spy).to receive(:ready?).and_return(true, false)
+
+    game = Game.new(Board.new, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy })
+    updated_board = game.play_specific(3)
+
+    expect(updated_board.symbol_at(3)).to be (PlayerSymbols::X)
+    expect(updated_board.symbol_at(8)).to be (PlayerSymbols::O)
+    expect(updated_board.vacant_indices.size).to eq 7
+  end
 
   it "continues until player is not ready" do
     allow(player_x_spy).to receive(:ready?).and_return(true, false)
@@ -26,23 +37,24 @@ RSpec.describe Game do
     expect(player_x_spy).to receive(:choose_move).exactly(1).times.and_return(2)
     expect(player_o_spy).to receive(:choose_move).exactly(1).times.and_return(8)
 
-    Game.new(Board.new, [player_x_spy, player_o_spy]).play
+    Game.new(Board.new, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy }).play
   end
 
   it "players take turn until there is no space on board" do
     expect(player_x_spy).to receive(:choose_move).exactly(5).times.and_return(0, 1, 4, 5, 6)
     expect(player_o_spy).to receive(:choose_move).exactly(4).times.and_return(2, 3, 7, 8)
 
-    Game.new(Board.new, [player_x_spy, player_o_spy]).play
+    Game.new(Board.new, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy }).play
 
   end
 
   it "game ends when a winning combination is formed" do
+    allow(player_x_spy).to receive(:ready?).and_return(true)
     allow(player_x_spy).to receive(:choose_move).once.and_return(2)
     allow(player_x_spy).to receive(:game_symbol).and_return(PlayerSymbols::X)
 
-    board = Board.new([PlayerSymbols::X, PlayerSymbols::X, nil, PlayerSymbols::O, nil, nil, nil, nil, nil])
-    updated_board = Game.new(board, [player_x_spy, player_o_spy]).play
+    board = Board.new([PlayerSymbols::X, PlayerSymbols::X, nil, PlayerSymbols::O, nil, PlayerSymbols::O, nil, nil, nil])
+    updated_board = Game.new(board, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy }).play
 
     expect(updated_board.symbol_at(2)).to be (PlayerSymbols::X)
     expect(player_o_spy).to_not have_received(:choose_move)
@@ -50,7 +62,7 @@ RSpec.describe Game do
 
   it "game ends when there are no free spaces on the board" do
     full_board = Board.new([PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::O, PlayerSymbols::X, PlayerSymbols::X, PlayerSymbols::O, PlayerSymbols::X])
-    game = Game.new(full_board, [player_x_spy, player_o_spy]).play
+    game = Game.new(full_board, { PlayerSymbols::X => player_x_spy, PlayerSymbols::O => player_o_spy }).play
 
     expect(player_o_spy).to_not have_received(:choose_move)
     expect(player_x_spy).to_not have_received(:choose_move)

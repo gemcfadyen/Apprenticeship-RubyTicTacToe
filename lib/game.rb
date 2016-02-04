@@ -7,18 +7,15 @@ class Game
 
   def play
     while game_in_progress?
-      @board = board.make_move(current_player.choose_move(board), current_player.game_symbol)
-      players.reverse!
+      current_player = players[player_symbol]
+      @board = board.make_move(current_player.choose_move(board), player_symbol)
     end
     board
   end
 
   def play_specific(move)
     @board = board.make_move(move, player_symbol)
-    #
-    # create a player who is not ready to break the loop at the end of the players array
-    # determine if there is someone else to play
-    # if so call play
+    play
   end
 
   private
@@ -32,10 +29,7 @@ class Game
   end
 
   def game_in_progress?
-    current_player.ready? && board.free_spaces? && !board.winning_combination?
+    players[player_symbol].ready? && board.free_spaces? && !board.winning_combination?
   end
 
-  def current_player
-    players.first
-  end
 end
