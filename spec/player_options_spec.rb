@@ -19,7 +19,7 @@ RSpec.describe PlayerOptions do
   end
 
   it "gets player type for id" do
-    expect(PlayerOptions::get_player_type_for_id(1)).to eq (PlayerOptions::HUMAN_VS_HUMAN)
+    expect(PlayerOptions::player_type_for_id(1)).to eq (PlayerOptions::HUMAN_VS_HUMAN)
   end
 
   it "gets player options for display" do
