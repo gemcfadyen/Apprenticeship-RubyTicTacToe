@@ -13,7 +13,7 @@ class PlayerOptions
     ID_TO_PLAYER_TYPE.keys
   end
 
-  def self.get_player_type_for_id(id)
+  def self.player_type_for_id(id)
     game_value_of_player = ID_TO_PLAYER_TYPE.fetch(id)
   end
 
